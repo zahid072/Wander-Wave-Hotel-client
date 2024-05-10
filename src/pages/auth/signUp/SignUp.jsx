@@ -58,7 +58,7 @@ const SignUp = () => {
       </Helmet>
       <div className="hero min-h-screen bg-[#335054]">
         <div className="hero-content w-full md:w-[800px]">
-          <div className="card shrink-0 w-full max-w-3xl shadow-2xl bg-[#ECEDF1]">
+          <div className="card shrink-0 w-full max-w-3xl shadow-2xl rounded bg-[#ECEDF1]">
             <form onSubmit={handleSubmit(submit)} className="card-body">
               <h1 className="text-3xl font-bold text-center">Sign Up</h1>
              
