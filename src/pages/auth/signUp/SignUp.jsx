@@ -36,7 +36,7 @@ const SignUp = () => {
         toast.success("User successfully created");
         updateUserProfile(name, photo);
         reset();
-        console.log(user)
+        console.log(user);
         setTimeout(() => {
           navigate(location?.state ? location.state : "/");
         }, 1000);
@@ -61,22 +61,32 @@ const SignUp = () => {
           <div className="card shrink-0 w-full max-w-3xl shadow-2xl rounded bg-[#ECEDF1]">
             <form onSubmit={handleSubmit(submit)} className="card-body">
               <h1 className="text-3xl font-bold text-center">Sign Up</h1>
-             
+
               <div className="flex md:flex-row flex-col gap-4 w-full">
-              <div className="form-control w-full">
-                <label className="label"> <span className="label-text">Name</span>
-                </label>
-                <input type="text" placeholder="Name"
-                  {...register("fullName")}
-                  className="input input-bordered w-full" />
-              </div>
-              <div className="form-control w-full">
-                <label className="label"> <span className="label-text">Email</span> </label>
-                <input type="email"  {...register("email")}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
+                <div className="form-control w-full">
+                  <label className="label">
+                    {" "}
+                    <span className="label-text">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    {...register("fullName")}
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="form-control w-full">
+                  <label className="label">
+                    {" "}
+                    <span className="label-text">Email</span>{" "}
+                  </label>
+                  <input
+                    type="email"
+                    {...register("email")}
+                    className="input input-bordered w-full"
+                    required
+                  />
+                </div>
               </div>
               <div className="form-control">
                 <label className="label">
@@ -90,8 +100,13 @@ const SignUp = () => {
                   required
                 />
               </div>
-             
-              <div className="form-control"> <label className="label"> <span className="label-text">Password</span> </label>
+
+              <div className="form-control">
+                {" "}
+                <label className="label">
+                  {" "}
+                  <span className="label-text">Password</span>{" "}
+                </label>
                 <div className="w-full flex items-center ">
                   <input
                     type={showPass ? "text" : "password"}
@@ -106,8 +121,10 @@ const SignUp = () => {
                         message: "Password should be at least 6 characters",
                       },
                       pattern: {
-                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,}$/,
-                        message: "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character",
+                        value:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,}$/,
+                        message:
+                          "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character",
                       },
                     })}
                     className="input input-bordered w-full"
@@ -115,9 +132,15 @@ const SignUp = () => {
                   />
                   <div onClick={handleShowPass} className="-ml-7">
                     {showPass ? (
-                      <span> <FaEye />  </span>
+                      <span>
+                        {" "}
+                        <FaEye />{" "}
+                      </span>
                     ) : (
-                      <span> <FaEyeSlash /> </span>
+                      <span>
+                        {" "}
+                        <FaEyeSlash />{" "}
+                      </span>
                     )}
                   </div>
                 </div>
