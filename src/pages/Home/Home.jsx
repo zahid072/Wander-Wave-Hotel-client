@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet";
 import HomeBanner from "../../components/banner/HomeBanner";
+import NewsLetter from "../../components/newsLetter/NewsLetter";
 
 const Home = () => {
   return (
@@ -10,6 +11,9 @@ const Home = () => {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <HomeBanner />
+      <div>
+        <NewsLetter/>
+      </div>
     </div>
   );
 };

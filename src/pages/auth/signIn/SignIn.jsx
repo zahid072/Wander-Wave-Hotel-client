@@ -61,7 +61,20 @@ const SignIn = () => {
         console.log("google", err.message);
       });
   };
-
+   // gitHub sighIn
+   const handleGitHubSignIn = () => {
+    signInWithGitHub()
+      .then((res) => {
+        const user = res.user;
+        toast.success("Sign in successful");
+        setTimeout(() => {
+          navigate(location?.state ? location.state : "/");
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log("gitHub", err.message);
+      });
+  };
   return (
     <>
       <Helmet>
@@ -157,14 +170,14 @@ const SignIn = () => {
               <div className="w-full flex md:flex-row flex-col gap-2 text-center font-semibold">
                 <button
                   onClick={handleGoogleSignIn}
-                  className=" w-full py-3 bg-[#9BD8D9] hover:bg-[#81c2c3eb] rounded-md flex items-center justify-center gap-2 border border-[#3e3d3d4f]"
+                  className=" w-full py-3 bg-[#b3c0c2] hover:bg-[#88a5a6eb] rounded-md flex items-center justify-center gap-2 border border-[#3e3d3d4f]"
                 >
                   <FcGoogle className="text-2xl " />
                   Google
                 </button>
                 <button
-                  // onClick={handleGitHubSignIn}
-                  className=" w-full py-3 bg-[#9BD8D9] hover:bg-[#81c2c3eb] rounded-md flex items-center justify-center gap-2 border border-[#3e3d3d4f]"
+                  onClick={handleGitHubSignIn}
+                  className=" w-full py-3 bg-[#b3c0c2] hover:bg-[#88a5a6eb] rounded-md flex items-center justify-center gap-2 border border-[#3e3d3d4f]"
                 >
                   <FaGithub className="text-2xl " />
                   GitHub
