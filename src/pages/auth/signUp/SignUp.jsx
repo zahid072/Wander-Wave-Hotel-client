@@ -8,7 +8,47 @@ import { Helmet } from "react-helmet";
 import { AuthContext } from "../../../provider/AuthProvider";
 
 const SignUp = () => {
-  
+  const [defaultError, setDefaultError] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const { signUpUsers, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleShowPass = () => {
+    setShowPass(!showPass);
+  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const submit = (data) => {
+    const name = data.fullName;
+    const photo = data.photoURL;
+    const email = data.email;
+    const password = data.password;
+
+    signUpUsers(email, password)
+      .then((result) => {
+        const user = result.user;
+        toast.success("User successfully created");
+        updateUserProfile(name, photo);
+        reset();
+        console.log(user)
+        setTimeout(() => {
+          navigate(location?.state ? location.state : "/");
+        }, 1000);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+
+        if (errorMessage === "Firebase: Error (auth/email-already-in-use).") {
+          setDefaultError("Email already in use");
+        }
+      });
+  };
   return (
     <>
       <Helmet>
