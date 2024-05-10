@@ -8,70 +8,35 @@ import { Helmet } from "react-helmet";
 import { AuthContext } from "../../../provider/AuthProvider";
 
 const SignUp = () => {
-  const [defaultError, setDefaultError] = useState("");
-  const [showPass, setShowPass] = useState(false);
-  const { signUpUsers, updateUserProfile } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleShowPass = () => {
-    setShowPass(!showPass);
-  };
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-
-  const submit = (data) => {
-    const name = data.fullName;
-    const photo = data.photoURL;
-    const email = data.email;
-    const password = data.password;
-
-    signUpUsers(email, password)
-      .then((result) => {
-        const user = result.user;
-        toast.success("User successfully created");
-        updateUserProfile(name, photo);
-        reset();
-        console.log(user)
-        setTimeout(() => {
-          navigate(location?.state ? location.state : "/");
-        }, 1000);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-
-        if (errorMessage === "Firebase: Error (auth/email-already-in-use).") {
-          setDefaultError("Email already in use");
-        }
-      });
-  };
+  
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Sign Up || Crafty Corner</title>
+        <title>Sign Up || Wander Wave</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      <div className="hero min-h-screen bg-[#30424E]">
+      <div className="hero min-h-screen bg-[#335054]">
         <div className="hero-content w-full md:w-[800px]">
           <div className="card shrink-0 w-full max-w-3xl shadow-2xl bg-[#ECEDF1]">
             <form onSubmit={handleSubmit(submit)} className="card-body">
               <h1 className="text-3xl font-bold text-center">Sign Up</h1>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Name</span>
+             
+              <div className="flex md:flex-row flex-col gap-4 w-full">
+              <div className="form-control w-full">
+                <label className="label"> <span className="label-text">Name</span>
                 </label>
-                <input
-                  type="text"
-                  placeholder="Name"
+                <input type="text" placeholder="Name"
                   {...register("fullName")}
-                  className="input input-bordered"
+                  className="input input-bordered w-full" />
+              </div>
+              <div className="form-control w-full">
+                <label className="label"> <span className="label-text">Email</span> </label>
+                <input type="email"  {...register("email")}
+                  className="input input-bordered w-full"
                   required
                 />
+              </div>
               </div>
               <div className="form-control">
                 <label className="label">
@@ -85,22 +50,8 @@ const SignUp = () => {
                   required
                 />
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="email"
-                  placeholder="email"
-                  {...register("email")}
-                  className="input input-bordered"
-                  required
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
+             
+              <div className="form-control"> <label className="label"> <span className="label-text">Password</span> </label>
                 <div className="w-full flex items-center ">
                   <input
                     type={showPass ? "text" : "password"}
@@ -115,10 +66,8 @@ const SignUp = () => {
                         message: "Password should be at least 6 characters",
                       },
                       pattern: {
-                        value:
-                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,}$/,
-                        message:
-                          "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character",
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,}$/,
+                        message: "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character",
                       },
                     })}
                     className="input input-bordered w-full"
@@ -126,13 +75,9 @@ const SignUp = () => {
                   />
                   <div onClick={handleShowPass} className="-ml-7">
                     {showPass ? (
-                      <span>
-                        <FaEye />
-                      </span>
+                      <span> <FaEye />  </span>
                     ) : (
-                      <span>
-                        <FaEyeSlash />
-                      </span>
+                      <span> <FaEyeSlash /> </span>
                     )}
                   </div>
                 </div>
