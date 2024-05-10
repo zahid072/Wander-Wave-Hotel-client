@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import videos from "../../assets/video/banner-video.mov";
+import videos from "../../../video/banner-video.mov";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
 
@@ -39,6 +39,7 @@ const HomeBanner = () => {
   return (
     <div>
       <div className="relative">
+
         <video className="w-full " autoPlay loop muted width="100%">
           <source src={videos} type="video/mp4" />
           Your browser does not support the video tag.
