@@ -1,10 +1,11 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Tooltip } from "react-leaflet";
 import { MapContainer } from "react-leaflet/MapContainer";
 import { TileLayer } from "react-leaflet/TileLayer";
-import { BiArea } from "react-icons/bi";
 import { icon } from "leaflet";
+import { FaLocationDot} from "react-icons/fa6";
+
 
 const DirectionMap = () => {
   const customIcon = new icon({
@@ -19,12 +20,12 @@ const DirectionMap = () => {
       }}
     >
       <div className="h-full bg-[#00000041] w-full backdrop-blur-md md:px-10 px-4 pb-8">
-        <h1 className="md:text-4xl text-2xl text-white md:text-start text-center font-gilda font-bold md:py-10 py-5 rounded-t px-5">
-          Hotel Direction
+        <h1 className="md:text-4xl text-2xl text-white md:text-start text-center font-gilda font-bold md:py-10 py-5 rounded-t px-5 tracking-wider">
+          HOTEL DIRECTION
         </h1>
         <MapContainer
           className="h-[600px] rounded"
-          center={[51.505, -0.09]}
+          center={[40.761454, -73.974236]}
           zoom={11}
           scrollWheelZoom={false}
         >
@@ -32,14 +33,22 @@ const DirectionMap = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[51.505, -0.09]} icon={customIcon}>
-            <Popup>
-              <img src="" className="rounded-full size-14 mx-auto" alt="" />
-              <h1 className="mt-2 text-center text-xl font-semibold ">ggg</h1>
-              <div className="flex items-center gap-2 ">
-                <BiArea className="text-emerald-400 text-2xl" /> hh
+          <Marker position={[40.761454, -73.974236]} icon={customIcon}>
+          <Tooltip className="p-4 rounded" direction="top" offset={[0, -50]} opacity={1}>
+              <div>
+                <img
+                  src="https://www.newworldhotels.com/wp-content/uploads/2014/05/Mobile-NWHBR-Exterior.jpg"
+                  className="rounded-full size-14 mx-auto"
+                  alt=""
+                />
+                <h1 className="mt-2 text-center text-xl font-semibold">
+                  Wander Wave Hotel
+                </h1>
+                <div className="flex items-center gap-2">
+                  <FaLocationDot className="text-emerald-400 text-2xl" /> 2 East 55th Street, New York, NY 10022, USA.
+                </div>
               </div>
-            </Popup>
+            </Tooltip>
           </Marker>
         </MapContainer>
       </div>

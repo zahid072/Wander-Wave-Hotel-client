@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/rooms",
+        path: "/rooms/",
         element: <Rooms />,
       },
       {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
       {
-        path: "/roomDetails",
+        path: "/roomDetails/:id",
         element: (
           <PrivateRouter>
             <RoomDetails />

@@ -12,7 +12,6 @@ import {
 } from "firebase/auth";
 import auth from "../firebase/Firebase.config";
 
-
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -21,6 +20,7 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
   const gitHubProvider = new GithubAuthProvider();
   const [loader, setLoader] = useState(true);
+  const [count, setCount] = useState(1);
 
   const signUpUsers = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -72,6 +72,8 @@ const AuthProvider = ({ children }) => {
     signInUsers,
     signInWithGoogle,
     signInWithGitHub,
+    setCount,
+    count,
   };
   return (
     <>

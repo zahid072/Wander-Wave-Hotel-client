@@ -8,7 +8,7 @@ const DefaultCard = ({ rooms, viewToggle }) => {
 
   return (
     <>
-      <Link to={"/roomDetails"}>
+      <Link to={`/roomDetails/${rooms?._id}`}>
         <div className="w-full overflow-hidden rounded relative border cursor-pointer">
           <div className="h-[300px] w-full relative">
             <img

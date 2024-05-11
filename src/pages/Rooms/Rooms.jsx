@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import DefaultCard from "../../components/defaultCard/DefaultCard";
 import { MdGridView } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
 import Loader from "../../components/loader/Loader";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Rooms = () => {
   const [roomData, setRoomData] = useState([]);
@@ -21,7 +22,7 @@ const Rooms = () => {
   const handleGridView = () => {
     setViewToggle(true);
   };
-
+ 
   // get rooms data
   useEffect(() => {
     axiosSecure
@@ -48,14 +49,14 @@ const Rooms = () => {
         <title>Rooms || Wander Wave</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      <div>
+      <div className="relative">
         <div
           style={{
             backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://media.designcafe.com/wp-content/uploads/2023/09/11183952/modern-luxury-bedroom-design.jpg")`,
           }}
           className="h-80 w-full bg-no-repeat bg-cover bg-center flex items-center justify-center text-white"
         >
-          <h1 className="font-gilda text-center md:text-6xl text-3xl font-semibold tracking-widest">
+          <h1 className="font-gilda px-2 text-center md:text-6xl text-3xl font-semibold tracking-widest">
             FIND YOUR PERFECT STAY
           </h1>
         </div>
@@ -87,25 +88,27 @@ const Rooms = () => {
           </div>
         </div>
       </div>
-      <div className="mt-10 md:mt-24 flex lg:flex-row-reverse flex-col gap-5 max-w-7xl lg:mx-auto mx-2">
-        <div className="lg:w-1/3 w-full ">
-          <div className="bg-stone-100 p-5 rounded">
-            <div>
-              <h1 className="text-2xl font-bold text-[#4e333b] text-center py-3">
-                FILTER BY PRICE RANGE
-              </h1>
-              <p className="font-bold">$ {maxPrice}</p>
+      <div className="mt-10 md:mt-24 flex  lg:flex-row-reverse flex-col gap-5 max-w-7xl lg:mx-auto mx-2">
+        <div className="lg:w-1/3 w-full">
+          <div className="sticky top-0">
+            <div className="bg-stone-100 p-5 rounded">
+              <div>
+                <h1 className="text-2xl font-bold text-[#4e333b] text-center py-3">
+                  FILTER BY PRICE RANGE
+                </h1>
+                <p className="font-bold">$ {maxPrice}</p>
+              </div>
+              <input
+                onChange={(e) => {
+                  setMaxPrice(e.target.value);
+                }}
+                type="range"
+                min={100}
+                max="1000"
+                defaultValue={400}
+                className="range range-accent"
+              />
             </div>
-            <input
-              onChange={(e) => {
-                setMaxPrice(e.target.value);
-              }}
-              type="range"
-              min={100}
-              max="1000"
-              defaultValue={400}
-              className="range range-accent"
-            />
           </div>
         </div>
         {loader ? (

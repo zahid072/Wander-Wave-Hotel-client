@@ -6,14 +6,14 @@ const NewsLetter = () => {
   return (
     <div>
       <div
-          className="py-20 md:py-28 mt-36 md:20 bg-cover bg-no-repeat bg-center"
+          className="py-20 md:py-28 mt-20 bg-cover bg-no-repeat bg-center"
           style={{
             backgroundImage: `url("https://i.ibb.co/0ZTk0wT/newsletterbg.png")`,
           }}
         >
           <div className="flex md:flex-row flex-col gap-5 justify-center lg:mx-36 md:mx-5 mx-2">
             <div
-              className="md:w-3/5 w-full p-4 rounded bg-[#68564ed6]"
+              className="md:w-3/5 w-full p-4 rounded bg-[#2c4549d0]"
               
             >
               <div className=" p-4 border md:py-10 rounded text-white h-full flex md:flex-row flex-col items-center">
@@ -52,9 +52,9 @@ const NewsLetter = () => {
                   <input
                     type="text"
                     placeholder="your@email.com"
-                    className=" py-3 px-3 md:border-r-0 w-full border-[3px] border-black  rounded md:rounded-r-none"
+                    className=" py-3 px-3 md:border-r-0 w-full border-[3px] border-black focus:outline-none rounded md:rounded-r-none"
                   />
-                  <button className='btn md:border-2 hover:border-2 hover:border-black border-black text-white rounded md:rounded-l-none hover:bg-[#6f5c53] bg-[#68564E] md:w-28 w-full md:mt-0 mt-5 md:h-[53px]'>Subscribe</button>
+                  <button className='btn md:border-2 hover:border-2 hover:border-black border-black text-white rounded md:rounded-l-none hover:bg-[#2c4549e4] bg-[#2c4549d0] md:w-28 w-full md:mt-0 mt-5 md:h-[53px]'>Subscribe</button>
                 </div>
               </div>
             </div>
