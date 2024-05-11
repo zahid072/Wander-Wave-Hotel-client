@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import Loader from '../../loader/Loader'
 
 const Contact = () => {
   return (
@@ -9,7 +10,7 @@ const Contact = () => {
         <title>Contact || Wander Wave</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      
+         <Loader/>
     </div>
   )
 }
