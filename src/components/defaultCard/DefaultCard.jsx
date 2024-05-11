@@ -8,7 +8,7 @@ const DefaultCard = ({ rooms, viewToggle }) => {
 
   return (
     <>
-      <Link>
+      <Link to={"/roomDetails"}>
         <div className="w-full overflow-hidden rounded relative border cursor-pointer">
           <div className="h-[300px] w-full relative">
             <img
@@ -24,7 +24,7 @@ const DefaultCard = ({ rooms, viewToggle }) => {
             <h1 className="text-2xl font-semibold">{rooms?.name}</h1>
             <div
               className={`mt-5 flex justify-between ${
-                !viewToggle ? "w-1/2" : "w-full"
+                !viewToggle ? "md:w-1/2" : "w-full"
               }`}
             >
               <p className="flex gap-2 items-center">

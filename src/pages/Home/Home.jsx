@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import HomeBanner from "../../components/banner/HomeBanner";
 import NewsLetter from "../../components/newsLetter/NewsLetter";
+import DirectionMap from "../../components/directionMap/DirectionMap";
 
 const Home = () => {
   return (
@@ -12,9 +13,11 @@ const Home = () => {
       </Helmet>
       <HomeBanner />
       <div>
-        <NewsLetter/>
+        <NewsLetter />
       </div>
-      
+      <div className="my-10">
+        <DirectionMap />
+      </div>
     </div>
   );
 };

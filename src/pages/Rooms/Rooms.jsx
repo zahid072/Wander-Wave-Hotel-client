@@ -4,7 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import DefaultCard from "../../components/defaultCard/DefaultCard";
 import { MdGridView } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
-import Loader from "../../loader/Loader";
+import Loader from "../../components/loader/Loader";
 
 const Rooms = () => {
   const [roomData, setRoomData] = useState([]);
@@ -51,15 +51,15 @@ const Rooms = () => {
       <div>
         <div
           style={{
-            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("http://www.nicdarkthemes.com/themes/hotel-booking/wp/demo/chalet/wp-content/uploads/sites/3/2022/05/parallax5.jpg")`,
+            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://media.designcafe.com/wp-content/uploads/2023/09/11183952/modern-luxury-bedroom-design.jpg")`,
           }}
           className="h-80 w-full bg-no-repeat bg-cover bg-center flex items-center justify-center text-white"
         >
-          <h1 className="font-gilda md:text-6xl text-3xl font-semibold tracking-widest">
-            SEARCH
+          <h1 className="font-gilda text-center md:text-6xl text-3xl font-semibold tracking-widest">
+            FIND YOUR PERFECT STAY
           </h1>
         </div>
-        <div className="p-5 bg-[#5e3e70b7] flex justify-between items-center w-full">
+        <div className="p-5 md:px-5 px-2 bg-[#36293dee] flex justify-between items-center w-full">
           <select
             onChange={(e) => {
               setSortValue(e.target.value);
@@ -77,8 +77,8 @@ const Rooms = () => {
               HIGHEST PRICE
             </option>
           </select>
-          <div className="md:pr-10">
-            <button onClick={handleTableView} className="btn mr-4">
+          <div className="md:pr-10 flex flex-wrap justify-end gap-2 items-center">
+            <button onClick={handleTableView} className="btn md:mr-4">
               <TfiMenuAlt className="text-2xl" />
             </button>
             <button onClick={handleGridView} className="btn">
