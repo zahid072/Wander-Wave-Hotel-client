@@ -20,7 +20,7 @@ const Home = () => {
       <div className="md:mx-5 mx-2">
         <NewsLetter />
       </div>
-      <div className="my-10">
+      <div className="my-10 md:my-20">
         <AllReviews/>
       </div>
       <div className="my-10">

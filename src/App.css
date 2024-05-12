@@ -25,3 +25,15 @@
   transition: 0.4s;
 
 }
+
+#review-userImage{
+  border-radius: 50% !important;
+  height: 100px !important;
+  width: 100px !important;
+}
+
+
+
+
+
+
