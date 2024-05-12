@@ -22,7 +22,10 @@ const AllReviews = () => {
       setRoomData(res.data);
       setTimeout(()=>{
         document.querySelector('.swiper-pagination .swiper-pagination-bullet:last-child').click()
-       }, 1000)
+       }, 500)
+      setTimeout(()=>{
+        document.querySelector('.swiper-pagination .swiper-pagination-bullet:last-child').click()
+       }, 3000)
     });
   }, []);
   
@@ -52,7 +55,7 @@ const AllReviews = () => {
         className="h-[600px] bg-slate-200"
       >
         {roomData.map((review, index) => (
-          <SwiperSlide key={index} className="w-96 h-[500px] mt-4 bg-white p-4">
+          <SwiperSlide key={index} className="md:w-96 max-[500px]:max-w-96 h-[500px] mt-4 bg-white p-4">
             <img
               id="review-userImage"
               className="size-28 mx-auto rounded-full"

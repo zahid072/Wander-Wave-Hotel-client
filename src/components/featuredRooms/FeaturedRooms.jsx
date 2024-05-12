@@ -20,8 +20,13 @@ const FeaturedRooms = () => {
   }, []);
   return (
     <div className="p-5 flex md:flex-row flex-col">
-      <div className="md:w-2/6 w-full  bg-[#dadada] flex items-center justify-center">
-        <h1 className="text-4xl font-semibold font-gilda">FEATURED ROOMS</h1>
+      <div
+        className="md:w-2/6 w-full bg-cover bg-center bg-no-repeat bg-[#f4f5f5]"
+      >
+        <div className="backdrop-blur-[7px] w-full h-full flex flex-col items-center justify-center">
+          <img className="md:size-20 size-10 mt-5" src="https://i.ibb.co/SshG09F/room-icon.png" alt="" />
+        <h1 className="text-4xl font-semibold font-gilda my-5 text-center">FEATURED ROOMS</h1>
+        </div>
       </div>
       <div className="md:w-2/3 w-full grid md:grid-cols-2 grid-cols-1 gap-5 bg-[#f9f2f2]">
         {loader && <Loader />}
@@ -38,10 +43,9 @@ const FeaturedRooms = () => {
               </p>
             </div>
             <div className="p-5">
-              <h1 className="text-xl font-semibold">{room?.description}</h1>
+              <h1 className="text-xl font-semibold">{room?.description.slice(0, 50)+"...."}</h1>
               <div className={`mt-5 flex justify-between md:w-1/2 w-full`}>
                 <Link to={`/roomDetails/${room?._id}`}>
-                  
                   <button className="btn text-white bg-[#2c4549e6] hover:bg-[#2C4549]">
                     Book Now
                   </button>

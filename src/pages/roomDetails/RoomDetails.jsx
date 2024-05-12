@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useLoaderData} from "react-router-dom";
+import RoomDetailsRight from "../../components/roomDetails/RoomDetailsRight";
+import RoomDetailsLeft from "../../components/roomDetails/RoomDetailsLeft";
 
 const RoomDetails = () => {
   const room = useLoaderData()
-  const [slidImage, setSlidImage] = useState(0);
-  const { name, images } = room;
 
-  const handleImage = (imageNO)=>{
-    setSlidImage(imageNO)
-  }
- 
-
+  const { name, images, guests, availability } = room;
   return (
     <div>
       <Helmet>
@@ -31,26 +26,18 @@ const RoomDetails = () => {
           </h1>
         </div>
       </div>
-      <div className="mt-10 md:mt-14 flex  lg:flex-row-reverse flex-col gap-5 max-w-7xl lg:mx-auto mx-2">
-        <div className="lg:w-1/3 w-full ">
-          <div className="sticky top-0"></div>
-        </div>
-        <div className="md:w-2/3 w-full ">
-          <h1 className="text-4xl font-bold mb-2">{name}</h1>
-          <div>
-             <div>
-              <figure><img className="h-[500px] w-full object-cover object-center" src={images[slidImage]} alt="" /></figure>
-              <div className="flex gap-4 mt-5 justify-center items-center">
-              {
-              images.map((image , index)=>(
-                <figure key={index}>
-                  <img onClick={()=>{handleImage(index)}} className="h-20 cursor-pointer" src={image} alt={index} />
-                </figure>
-              ))
-             }
-              </div>
-             </div>
+          <div className="my-10 max-w-7xl lg:mx-auto mx-2">
+            <h1 className="text-3xl text-end font-semibold uppercase tracking-widest">{name}</h1>
+
           </div>
+      <div className="flex lg:flex-row flex-col-reverse gap-5 max-w-7xl lg:mx-auto mx-2">
+        <div className="lg:w-1/3 w-full ">
+          <div className="sticky top-0">
+         <RoomDetailsRight room={room}/>
+          </div>
+        </div>
+        <div className="lg:w-2/3 w-full ">
+          <RoomDetailsLeft images={images} room={room}/>
         </div>
       </div>
     </div>

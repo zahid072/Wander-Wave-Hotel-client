@@ -20,12 +20,13 @@ const Home = () => {
       <div className="md:mx-5 mx-2">
         <NewsLetter />
       </div>
+      <div className="md:mt-20 mt-10">
+        <DirectionMap />
+      </div>
       <div className="my-10 md:my-20">
         <AllReviews/>
       </div>
-      <div className="my-10">
-        <DirectionMap />
-      </div>
+      
     </div>
   );
 };

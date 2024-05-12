@@ -11,7 +11,7 @@ const HomeBanner = () => {
   const [date, setDate] = useState(new Date());
   const [dayIn, setDayIn] = useState(defaultDay);
   const [monthIn, setMonthIn] = useState(defaultMonth);
-  const [dayOut, setDayOut] = useState(defaultDay + 1);
+  const [dayOut, setDayOut] = useState(defaultDay + 3);
   const [monthOut, setMonthOut] = useState(defaultMonth);
   const { count, setCount } = useContext(AuthContext);
 

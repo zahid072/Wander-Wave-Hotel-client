@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { Tooltip } from "react-tooltip";
 
 const Navbar = ({ themes, handleThemeToggle }) => {
   const { user, navLoader, logOut } = useContext(AuthContext);
@@ -65,7 +66,7 @@ const Navbar = ({ themes, handleThemeToggle }) => {
   );
   return (
     <>
-      <div className="navbar w-full mr-0 ">
+      <div className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="lg:hidden">
@@ -139,7 +140,7 @@ const Navbar = ({ themes, handleThemeToggle }) => {
         <div className="navbar-center hidden lg:flex">
           <ul className="flex *:px-4 *:py-2 ">{navLink}</ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end ">
           <div
             onClick={handleThemeToggle}
             className="mr-4 text-3xl cursor-pointer max-[375px]:hidden block"
@@ -158,12 +159,12 @@ const Navbar = ({ themes, handleThemeToggle }) => {
           {!navLoader ? (
             <>
               {user && (
-                <div
-                  className=" tooltip tooltip-bottom"
-                  data-tip={user?.displayName}
-                >
+                <div>
+                  <Tooltip className="z-50" anchorSelect=".my-anchor-element" place="bottom">
+                    {user.displayName}
+                  </Tooltip>
                   <img
-                    className="size-12 cursor-pointer rounded-full md:mr-5"
+                    className="size-12 cursor-pointer rounded-full my-anchor-element mr-3"
                     src={
                       (user?.photoURL && user?.photoURL) ||
                       "https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small/user-icon-on-transparent-background-free-png.png"
