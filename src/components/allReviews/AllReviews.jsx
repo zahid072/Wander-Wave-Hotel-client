@@ -53,6 +53,9 @@ const AllReviews = () => {
         modules={[EffectCoverflow, Pagination, Autoplay]}
         className="h-[600px] bg-slate-200"
       >
+        {
+          reviews.length === 0 && <h1 className=" text-center text-red-400 text-3xl font-bold font-gilda">EMPTY</h1>
+        }
         {reviews?.slice(0, 8).map((review, index) => (
           <SwiperSlide key={index} className="md:w-96 max-[500px]:max-w-96 h-[500px] mt-4 bg-white p-4">
             <img

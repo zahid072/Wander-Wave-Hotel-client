@@ -6,22 +6,23 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useContext } from "react";
 import { FaLocationDot } from "react-icons/fa6";
+import DirectionMap from "../../components/directionMap/DirectionMap";
 
 const Contact = () => {
-  // const { user } = useContext(AuthContext);
-  // const navigate = useNavigate();
-  // console.log(user);
-  // const handleSendMessage = (e) => {
-  //   e.preventDefault();
-  //   if (!user) {
-  //     navigate("/signIn");
-  //     return;
-  //   }
-  //   e.target.reset();
-  //   toast.success(
-  //     "You've successfully sent your message. We'll get back to you soon!"
-  //   );
-  // };
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  console.log(user);
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (!user) {
+      navigate("/signIn");
+      return;
+    }
+    e.target.reset();
+    toast.success(
+      "You've successfully sent your message. We'll get back to you soon!"
+    );
+  };
 
   return (
     <div>
@@ -30,32 +31,34 @@ const Contact = () => {
         <title>Contact || Wander Wave</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      {/* <div className="py-5">
-        <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-center py-24 bg-gradient-to-r text-white from-[#30424E] to-[#5C8392] rounded">
-          Contact
-        </h1>
-        <div className="flex md:flex-row flex-col *:cursor-pointer pl-10 w-full justify-evenly gap-8 py-10">
-          <p className=" md:text-3xl flex md:flex-col flex-row gap-5">
-            <FaLocationDot className="text-[#5C8392] text-center md:text-5xl text-3xl md:ml-7" />
-            <span>Location</span>
+      <div className="py-5">
+        <div className="h-[630px] relative overflow-hidden ">
+         <div className="absolute bottom-0 w-full">
+         <DirectionMap/>
+         </div>
+        </div>
+        <div className="flex my-10 lg:flex-row gap-5 max-w-7xl lg:mx-auto mx-2 flex-col">
+
+        <div className=" lg:w-1/2 flex flex-col *:cursor-pointer w-full justify-center items-center gap-8">
+          <h1 className="text-center font-bold text-3xl my-5">CONTACT INFO</h1>
+          <p className=" md:text-3xl flex  flex-row gap-5">
+            <FaLocationDot className="text-[#5C8392] text-center text-3xl " />
             <span className="text-xl">Dhaka, Bangladesh</span>
           </p>
-          <p className="text-center md:text-3xl flex md:flex-col flex-row gap-5">
-            <BsTelephone className="text-[#5C8392] text-center md:text-5xl text-3xl md:ml-5" />
-            <span>Phone</span>
+          <p className=" md:text-3xl flex flex-row gap-5">
+            <BsTelephone className="text-[#5C8392]  text-3xl" />
             <span className="text-xl">+880 01358545556</span>
           </p>
-          <p className=" md:text-3xl flex md:flex-col flex-row gap-5">
+          <p className=" md:text-3xl flex flex-row gap-5">
             {" "}
-            <MdOutlineMailOutline className="text-[#5C8392] text-center md:text-5xl text-3xl md:ml-2" />
-            <span>Email</span>{" "}
+            <MdOutlineMailOutline className="text-[#5C8392] text-center  text-3xl" />
             <span className="text-xl">jahidhasan@gmail.com</span>
           </p>
         </div>
 
-        <div>
+        <div className="lg:w-1/2 w-full">
           <h1 className="text-center md:text-5xl text-2xl font-bold ">
-            Send a <span className="text-[#5C8392]">message</span>
+            GET IN <span className="text-[#5C8392]">TOUCH</span>
           </h1>
           <p className="max-w-3xl mx-auto text-gray-500 text-center mt-5">
             Have a question or need assistance? Reach out to us at Crafty
@@ -66,7 +69,7 @@ const Contact = () => {
             onSubmit={handleSendMessage}
             className=" p-10 max-w-4xl mx-auto"
           >
-            <div className="flex md:flex-row flex-col gap-5 *:w-full *:border *:border-gray-300">
+            <div className="flex flex-col gap-5 *:w-full *:border *:border-gray-300">
               <input
                 className="input"
                 placeholder="Full Name"
@@ -95,8 +98,9 @@ const Contact = () => {
             </div>
           </form>
         </div>
+        </div>
         <ToastContainer />
-      </div> */}
+      </div>
     </div>
   );
 };
