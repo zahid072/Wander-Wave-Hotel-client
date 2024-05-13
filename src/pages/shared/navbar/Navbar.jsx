@@ -3,13 +3,29 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Navbar = ({ themes, handleThemeToggle }) => {
   const { user, navLoader, logOut } = useContext(AuthContext);
   const { pathname } = useLocation();
+  const axiosSecure = useAxiosSecure();
+  
+  const user_email = user?.email ? user?.email : user?.reloadUserInfo?.providerUserInfo[0].email;
 
   const handleSignOut = () => {
-    logOut();
+    axiosSecure.delete(`/bookings/user/${user_email}`).then((res) => {
+      if (res.data.deletedCount) {
+        axiosSecure
+          .patch(`/hotelRooms/user/AB`, { availability: true })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.modifiedCount) {
+              logOut();
+            }
+          })
+          .catch((err) => {});
+      }
+    });
   };
   const navLink = (
     <>
@@ -160,7 +176,11 @@ const Navbar = ({ themes, handleThemeToggle }) => {
             <>
               {user && (
                 <div>
-                  <Tooltip className="z-50" anchorSelect=".my-anchor-element" place="bottom">
+                  <Tooltip
+                    className="z-50"
+                    anchorSelect=".my-anchor-element"
+                    place="bottom"
+                  >
                     {user.displayName}
                   </Tooltip>
                   <img
