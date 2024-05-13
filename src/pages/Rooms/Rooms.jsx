@@ -90,7 +90,7 @@ const Rooms = () => {
       </div>
       <div className="mt-10 md:mt-24 flex  lg:flex-row-reverse flex-col gap-5 max-w-7xl lg:mx-auto mx-2">
         <div className="lg:w-1/3 w-full">
-          <div className="sticky top-0">
+          <div>
             <div className="bg-stone-100 p-5 rounded">
               <div>
                 <h1 className="text-2xl font-bold text-[#4e333b] text-center py-3">

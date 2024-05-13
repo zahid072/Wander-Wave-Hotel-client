@@ -30,8 +30,8 @@ const FeaturedRooms = () => {
       </div>
       <div className="md:w-2/3 w-full grid md:grid-cols-2 grid-cols-1 gap-5 bg-[#f9f2f2]">
         {loader && <Loader />}
-        {roomData.map((room) => (
-          <div className="w-full overflow-hidden rounded relative border border-[#2c454970] cursor-pointer">
+        {roomData.map((room, index) => (
+          <div key={index} className="w-full overflow-hidden rounded relative border border-[#2c454970] cursor-pointer">
             <div className="h-[300px] w-full relative">
               <img
                 className="h-full w-full object-cover object-center  rounded rounded-b-none"

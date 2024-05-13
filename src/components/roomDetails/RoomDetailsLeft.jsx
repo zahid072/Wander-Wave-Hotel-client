@@ -4,7 +4,7 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { PiUserSquareThin } from "react-icons/pi";
 import { TbBed } from "react-icons/tb";
 
-const RoomDetailsLeft = ({ images, room }) => {
+const RoomDetailsLeft = ({ room }) => {
   const [slidImage, setSlidImage] = useState(0);
 
   const handleImage = (imageNO) => {
@@ -17,6 +17,7 @@ const RoomDetailsLeft = ({ images, room }) => {
     availability,
     price_per_night,
     services,
+    images,
     special_offers,
   } = room;
 
@@ -32,7 +33,7 @@ const RoomDetailsLeft = ({ images, room }) => {
             />
           </figure>
           <div className="flex gap-4 pt-5 justify-center items-center bg-white">
-            {images.map((image, index) => (
+            {images?.map((image, index) => (
               <figure key={index}>
                 <img
                   onClick={() => {
@@ -82,13 +83,13 @@ const RoomDetailsLeft = ({ images, room }) => {
           </p>
           <p className="flex gap-2 flex-col justify-center items-center">
             <TbBed className="text-5xl" />
-            {price_per_night} / PER NIGHT
+           ${price_per_night} / PER NIGHT
           </p>
         </div>
         <div className="py-5 ">
           <h1 className="text-3xl font-bold py-5">Room services</h1>
           <ul className="list-disc flex flex-wrap md:gap-10">
-            {services.map((service, index) => (
+            {services?.map((service, index) => (
               <li key={index} className="ml-4">
                 {service}
               </li>

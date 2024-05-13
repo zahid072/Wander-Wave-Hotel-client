@@ -2,11 +2,25 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-const RoomDetailsRight = ({ room }) => {
-  const { guests, availability } = room;
+const RoomDetailsRight = ({ room, handleBooking }) => {
+  const { guests, availability, images } = room;
   const [err, setErr] = useState("");
   const defaultDate = new Date();
   const defaultDay = defaultDate.getDate();
+  const [checkIn, setCheckIn] = useState(
+    `${defaultDate.getDate().toString().padStart(2, "0")}/${(
+      defaultDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}/${defaultDate.getFullYear()}`
+  );
+  const [checkOut, setCheckOut] = useState(
+    `${(defaultDate.getDate() + 3).toString().padStart(2, "0")}/${(
+      defaultDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}/${defaultDate.getFullYear()}`
+  );
   const defaultMonth = defaultDate.toLocaleString("default", { month: "long" });
   const [dayIn, setDayIn] = useState(defaultDay);
   const [monthIn, setMonthIn] = useState(defaultMonth);
@@ -14,16 +28,10 @@ const RoomDetailsRight = ({ room }) => {
   const [monthOut, setMonthOut] = useState(defaultMonth);
   const [nights, setNights] = useState(0);
 
-  const handleBooking = () => {
-    if (nights === 0) {
-      setErr("Please select a valid date.");
-    }
-  };
-
   useEffect(() => {
     if (dayOut > dayIn) {
       setNights(dayOut - dayIn);
-    } else if (dayOut < dayIn) {
+    } else {
       setNights(0);
     }
   }, [dayIn, dayOut]);
@@ -32,7 +40,13 @@ const RoomDetailsRight = ({ room }) => {
     setErr("");
     // console.log(event)
     const selectedDate = new Date(event.target.value);
-    setDate(selectedDate);
+    setCheckIn(
+      `${selectedDate.getDate().toString().padStart(2, "0")}/${(
+        selectedDate.getMonth() + 1
+      )
+        .toString()
+        .padStart(2, "0")}/${selectedDate.getFullYear()}`
+    );
     const selectedDay = parseInt(selectedDate.getDate());
     const selectedMonth = selectedDate.toLocaleString("default", {
       month: "long",
@@ -44,7 +58,13 @@ const RoomDetailsRight = ({ room }) => {
     setErr("");
     // console.log(event)
     const selectedDate = new Date(event.target.value);
-    setDate(selectedDate);
+    setCheckOut(
+      `${selectedDate.getDate().toString().padStart(2, "0")}/${(
+        selectedDate.getMonth() + 1
+      )
+        .toString()
+        .padStart(2, "0")}/${selectedDate.getFullYear()}`
+    );
     const selectedDay = parseInt(selectedDate.getDate());
     const selectedMonth = selectedDate.toLocaleString("default", {
       month: "long",
@@ -107,8 +127,14 @@ const RoomDetailsRight = ({ room }) => {
       {err && <p className="text-red-500">{err}</p>}
       <div className="mt-5">
         <button
-          onClick={handleBooking}
-          className={`btn w-full ${availability ? "bg-[#2C4549] hover:bg-[#2C4549]" : "bg-[#82342e] hover:bg-[#492c2c]"} text-white rounded`}
+          onClick={() => {
+            handleBooking(`${checkIn} - ${checkOut}`, nights);
+          }}
+          className={`btn w-full ${
+            availability
+              ? "bg-[#2C4549] hover:bg-[#2C4549]"
+              : "bg-[#82342e] hover:bg-[#492c2c]"
+          } text-white rounded`}
         >
           {!availability ? "Booked" : "Book Now"}
         </button>
