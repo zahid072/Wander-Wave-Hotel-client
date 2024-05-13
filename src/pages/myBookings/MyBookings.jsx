@@ -7,10 +7,41 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect } from "react";
 import { useState } from "react";
 import MyBookingsCard from "../../components/myBookingsCard/MyBookingsCard";
+import { FaXmark } from "react-icons/fa6";
+import Swal from "sweetalert2";
+import { IoIosArrowDown } from "react-icons/io";
 
 const MyBookings = () => {
+  const [modal, setModal] = useState(false);
+  const [bookingId, setBookingId] = useState(null);
+  const [reFetch, setReFetch] = useState(false);
   const { user } = useContext(AuthContext);
   const [bookingData, setBookingData] = useState([]);
+  const [postLoader, setPostLoader] = useState(false);
+  // -------------------date states start---------------------------------
+  const defaultDate = new Date();
+  const defaultDay = defaultDate.getDate();
+  const defaultMonth = defaultDate.toLocaleString("default", { month: "long" });
+  const [dayIn, setDayIn] = useState(defaultDay);
+  const [monthIn, setMonthIn] = useState(defaultMonth);
+  const [dayOut, setDayOut] = useState(defaultDay + 3);
+  const [monthOut, setMonthOut] = useState(defaultMonth);
+
+  const [checkIn, setCheckIn] = useState(
+    `${defaultDate.getDate().toString().padStart(2, "0")}/${(
+      defaultDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}/${defaultDate.getFullYear()}`
+  );
+  const [checkOut, setCheckOut] = useState(
+    `${(defaultDate.getDate() + 3).toString().padStart(2, "0")}/${(
+      defaultDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}/${defaultDate.getFullYear()}`
+  );
+  // -----------------------date states end--------------------------
   const axiosSecure = useAxiosSecure();
   const { email, reloadUserInfo } = user;
   const user_email = email ? email : reloadUserInfo?.providerUserInfo[0].email;
@@ -18,18 +49,83 @@ const MyBookings = () => {
   useEffect(() => {
     axiosSecure.get(`bookings?email=${user_email}`).then((res) => {
       setBookingData(res?.data);
+      setReFetch(false)
     });
-  }, []);
+  }, [reFetch]);
   console.log(bookingData);
 
-  const handleUpdateDate = ()=>{
+  // -------------------booking date update handle-----------------------------
+  const handleUpdateDate = (id) => {
+    setModal(true);
+    setBookingId(id);
+  };
+  const newDate = { booking_date: `${checkIn} - ${checkOut}` };
+  const handleUpdate = () => {
+    setPostLoader(true)
+    axiosSecure.patch(`/bookings/${bookingId}`, newDate).then((res) => {
+      if (res.data.modifiedCount) {
+        setPostLoader(false)
+        setModal(false)
+        setReFetch(true)
+        Swal.fire({
+          title: "Success!",
+          text: "Successfully Updated",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+      }
+    }).catch(err =>{
+      setPostLoader(false)
+      setModal(false)
+      Swal.fire({
+        title: "Error!",
+        text: err.message,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    })
+  };
 
-  }
-  const handleCancelBooking = ()=>{
-    
-  }
+  // ------------------booking delete handle---------------------------------
+  const handleCancelBooking = () => {};
+
+  // ------------------------------handle get updated date ------------------------------------
+  const handleCheckIn = (e) => {
+    const selectedDate = new Date(e.target.value);
+    setCheckIn(
+      `${selectedDate.getDate().toString().padStart(2, "0")}/${(
+        selectedDate.getMonth() + 1
+      )
+        .toString()
+        .padStart(2, "0")}/${selectedDate.getFullYear()}`
+    );
+    // ------------ set display date and month--------------
+    const selectedDay = parseInt(selectedDate.getDate());
+    const selectedMonth = selectedDate.toLocaleString("default", {
+      month: "long",
+    });
+    setDayIn(selectedDay);
+    setMonthIn(selectedMonth);
+  };
+  const handleCheckOut = (e) => {
+    const selectedDate = new Date(e.target.value);
+    setCheckOut(
+      `${selectedDate.getDate().toString().padStart(2, "0")}/${(
+        selectedDate.getMonth() + 1
+      )
+        .toString()
+        .padStart(2, "0")}/${selectedDate.getFullYear()}`
+    );
+    // ------------ set display date and month--------------
+    const selectedDay = parseInt(selectedDate.getDate());
+    const selectedMonth = selectedDate.toLocaleString("default", {
+      month: "long",
+    });
+    setDayOut(selectedDay);
+    setMonthOut(selectedMonth);
+  };
   return (
-    <div>
+    <div className="relative">
       <Helmet>
         <meta charSet="utf-8" />
         <title>My Bookings || Wander Wave</title>
@@ -43,13 +139,11 @@ const MyBookings = () => {
             }}
             className="h-96 w-full bg-no-repeat bg-cover bg-center flex flex-col gap-5 items-center justify-center text-white"
           >
-            <nav
-              aria-label="breadcrumb"
-              className="w-full p-4 text-gray-100"
-            >
+            <nav aria-label="breadcrumb" className="w-full p-4 text-gray-100">
               <ol className="flex justify-center flex-wrap h-8 space-x-2">
                 <li className="flex items-center">
-                  <Link to={"/"}
+                  <Link
+                    to={"/"}
                     rel="noopener noreferrer"
                     title="Back to homepage"
                     className="hover:underline"
@@ -75,8 +169,9 @@ const MyBookings = () => {
                   </a>
                 </li>
                 <li className="flex items-center space-x-2">
-                 /
-                  <Link to={"/rooms"}
+                  /
+                  <Link
+                    to={"/rooms"}
                     rel="noopener noreferrer"
                     className="flex items-center px-1 capitalize hover:underline"
                   >
@@ -101,9 +196,76 @@ const MyBookings = () => {
           </div>
         </div>
         <div>
-          <MyBookingsCard bookingData={bookingData} handleCancelBooking={handleCancelBooking} handleUpdateDate={handleUpdateDate} />
+          <MyBookingsCard
+            bookingData={bookingData}
+            handleCancelBooking={handleCancelBooking}
+            handleUpdateDate={handleUpdateDate}
+          />
         </div>
       </div>
+      {modal && (
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#31303061]">
+          <div className="fixed rounded lg:w-2/5 md:w-2/3 w-11/12  top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white">
+            <div className="relative size-full p-5">
+              <div className="grid grid-cols-2 gap-3 bg-[#2c4549a6] p-4 mb-20 mt-5 rounded text-white">
+                <div className="relative p-3 text-center bg-[#2C4549]">
+                  <h1>CHECK IN</h1>
+                  <div className="flex gap-2 justify-center md:mt-3 mt-1">
+                    <h1 className="md:text-5xl text-3xl font-semibold font-poppins">
+                      {dayIn < 10 ? "0" + dayIn : dayIn}
+                    </h1>
+                    <h2>
+                      {monthIn} <IoIosArrowDown className="mx-auto mt-1" />
+                    </h2>
+                  </div>
+                  <input
+                    className=" absolute top-0 left-0 bottom-0 right-0 opacity-0 cursor-pointer w-full h-full"
+                    onChange={handleCheckIn}
+                    type="date"
+                  />
+                </div>
+                <div className="relative text-center p-3 bg-[#2C4549]">
+                  <h1>CHECK OUT</h1>
+                  <div className="flex gap-2 md:mt-3 justify-center mt-1">
+                    <h1 className="md:text-5xl text-3xl font-semibold font-poppins">
+                      {dayOut < 10 ? "0" + dayOut : dayOut}
+                    </h1>
+                    <h2>
+                      {monthOut} <IoIosArrowDown className="mx-auto mt-1" />
+                    </h2>
+                  </div>
+                  <input
+                    className=" absolute top-0 left-0 bottom-0 right-0 opacity-0 cursor-pointer w-full h-full"
+                    onChange={handleCheckOut}
+                    type="date"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  setModal(false);
+                }}
+                className="p-1  rounded bg-slate-200 absolute top-2 right-2"
+              >
+                <FaXmark />
+              </button>
+
+              <button
+                onClick={handleUpdate}
+                className="px-5 py-2 rounded bg-[#2C4549] hover:bg-[#283d41] text-white absolute bottom-5 left-1/2 transform -translate-x-1/2"
+              >
+                Update
+              </button>
+              {postLoader && (
+                <div className="absolute top-0 left-0 right-0 bottom-0 bg-[#2e2d2d47] flex items-center justify-center">
+                  <span className="loading loading-spinner loading-lg text-white size-16"></span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
