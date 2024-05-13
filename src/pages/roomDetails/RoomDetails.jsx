@@ -104,7 +104,7 @@ const RoomDetails = () => {
         </div>
       </div>
       {modal && (
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#31303061]">
+        <div className="absolute z-50 top-0 bottom-0 left-0 right-0 bg-[#31303061]">
           <div className="fixed rounded lg:w-2/5 md:w-2/3 w-11/12  top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white">
             <div className="relative size-full p-5">
               <div className="md:w-4/5 w-full h-2/5 mx-auto">

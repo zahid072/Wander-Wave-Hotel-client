@@ -8,6 +8,12 @@ const MyBookingsCard = ({handleUpdateDate, handleCancelBooking, bookingData}) =>
       <div className="flex flex-col max-w-3xl lg:mx-auto mx-2 my-5  py-6 px-2 space-y-4 sm:p-10 bg-gray-900 text-gray-100">
         <h2 className="text-xl font-semibold uppercase">All Bookings : {`(${bookingData.length})`}</h2>
         <ul className="flex flex-col divide-y divide-gray-700">
+
+          {
+            bookingData.length === 0 && (
+              <p className="text-center text-red-400 text-xl font-gilda">YOUR BOOKING LIST IS EMPTY.</p>
+            )
+          }
           
          {
           bookingData?.map((booking, index)=>(

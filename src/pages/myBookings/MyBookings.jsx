@@ -18,6 +18,7 @@ const MyBookings = () => {
   const { user } = useContext(AuthContext);
   const [bookingData, setBookingData] = useState([]);
   const [postLoader, setPostLoader] = useState(false);
+  const [deleteLoader, setDeleteLoader] = useState(false);
   // -------------------date states start---------------------------------
   const defaultDate = new Date();
   const defaultDay = defaultDate.getDate();
@@ -49,7 +50,7 @@ const MyBookings = () => {
   useEffect(() => {
     axiosSecure.get(`bookings?email=${user_email}`).then((res) => {
       setBookingData(res?.data);
-      setReFetch(false)
+      setReFetch(false);
     });
   }, [reFetch]);
   console.log(bookingData);
@@ -61,33 +62,78 @@ const MyBookings = () => {
   };
   const newDate = { booking_date: `${checkIn} - ${checkOut}` };
   const handleUpdate = () => {
-    setPostLoader(true)
-    axiosSecure.patch(`/bookings/${bookingId}`, newDate).then((res) => {
-      if (res.data.modifiedCount) {
-        setPostLoader(false)
-        setModal(false)
-        setReFetch(true)
+    setPostLoader(true);
+    axiosSecure
+      .patch(`/bookings/${bookingId}`, newDate)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          setPostLoader(false);
+          setModal(false);
+          setReFetch(true);
+          Swal.fire({
+            title: "Success!",
+            text: "Successfully Updated",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+        }
+      })
+      .catch((err) => {
+        setPostLoader(false);
+        setModal(false);
         Swal.fire({
-          title: "Success!",
-          text: "Successfully Updated",
-          icon: "success",
+          title: "Error!",
+          text: err.message,
+          icon: "error",
           confirmButtonText: "Ok",
         });
-      }
-    }).catch(err =>{
-      setPostLoader(false)
-      setModal(false)
-      Swal.fire({
-        title: "Error!",
-        text: err.message,
-        icon: "error",
-        confirmButtonText: "Ok",
       });
-    })
   };
 
   // ------------------booking delete handle---------------------------------
-  const handleCancelBooking = () => {};
+  const handleCancelBooking = (rooId, id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this booking!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes!",
+      cancelButtonText: "No!",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setDeleteLoader(true);
+        axiosSecure.delete(`/bookings/${id}`).then((res) => {
+          if (res.data.deletedCount) {
+            axiosSecure
+              .patch(`/hotelRooms/${rooId}`, { availability: true })
+              .then((res) => {
+                console.log(res.data);
+                if (res.data.modifiedCount) {
+                  setReFetch(true);
+                  setDeleteLoader(false);
+                  Swal.fire({
+                    title: "Canceled!",
+                    text: "Your booking has been Canceled.",
+                    icon: "success",
+                    confirmButtonText: "Ok",
+                  });
+                }
+              })
+              .catch((err) => {
+                setDeleteLoader(false);
+                Swal.fire({
+                  title: "Error!",
+                  text: err.message,
+                  icon: "error",
+                  confirmButtonText: "Ok",
+                });
+              });
+          }
+        });
+      }
+    });
+  };
 
   // ------------------------------handle get updated date ------------------------------------
   const handleCheckIn = (e) => {
@@ -175,7 +221,7 @@ const MyBookings = () => {
                     rel="noopener noreferrer"
                     className="flex items-center px-1 capitalize hover:underline"
                   >
-                    BOOK NOW
+                    BOOK MORE
                   </Link>
                 </li>
                 <li className="flex items-center space-x-2">
@@ -183,7 +229,7 @@ const MyBookings = () => {
                   <a
                     rel="noopener noreferrer"
                     href="#"
-                    className="flex items-center px-1 capitalize hover:underline  cursor-default"
+                    className="flex items-center px-1  hover:underline  cursor-default uppercase"
                   >
                     My Bookings
                   </a>
@@ -202,9 +248,14 @@ const MyBookings = () => {
             handleUpdateDate={handleUpdateDate}
           />
         </div>
+        {deleteLoader && (
+          <div className="fixed top-0 left-0 right-0 bottom-0 bg-[#2e2d2d47] flex items-center justify-center">
+            <span className="loading loading-spinner loading-lg text-white size-16"></span>
+          </div>
+        )}
       </div>
       {modal && (
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#31303061]">
+        <div className="absolute top-0 bottom-0 left-0 right-0 z-50 bg-[#31303061]">
           <div className="fixed rounded lg:w-2/5 md:w-2/3 w-11/12  top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white">
             <div className="relative size-full p-5">
               <div className="grid grid-cols-2 gap-3 bg-[#2c4549a6] p-4 mb-20 mt-5 rounded text-white">
