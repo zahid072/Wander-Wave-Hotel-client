@@ -10,10 +10,15 @@ import MyBookingsCard from "../../components/myBookingsCard/MyBookingsCard";
 import { FaXmark } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { IoIosArrowDown } from "react-icons/io";
+import AddReviews from "../../components/addReviews/AddReviews";
 
 const MyBookings = () => {
+  // -------------------modals---------------------
   const [modal, setModal] = useState(false);
+  const [reviewModal, setReviewModal] = useState(false);
+  // ------------------data states-----------------
   const [bookingId, setBookingId] = useState(null);
+  const [room_id, setReviewRoomId] = useState(null);
   const [reFetch, setReFetch] = useState(false);
   const { user } = useContext(AuthContext);
   const [bookingData, setBookingData] = useState([]);
@@ -94,7 +99,7 @@ const MyBookings = () => {
   const handleCancelBooking = (rooId, id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You want to delete this booking!",
+      text: "You want to cancel this booking!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes!",
@@ -170,6 +175,11 @@ const MyBookings = () => {
     setDayOut(selectedDay);
     setMonthOut(selectedMonth);
   };
+  // ----------------handleReviews---------------------
+  const handleReviews = (id)=>{
+    setReviewModal(true)
+    setReviewRoomId(id)
+  }
   return (
     <div className="relative">
       <Helmet>
@@ -246,6 +256,7 @@ const MyBookings = () => {
             bookingData={bookingData}
             handleCancelBooking={handleCancelBooking}
             handleUpdateDate={handleUpdateDate}
+            handleReviews={handleReviews}
           />
         </div>
         {deleteLoader && (
@@ -254,6 +265,15 @@ const MyBookings = () => {
           </div>
         )}
       </div>
+      {reviewModal && (
+        <div className="absolute top-0 bottom-0 left-0 right-0 z-50 bg-[#31303061]">
+          <div className="fixed rounded lg:w-2/5 md:w-2/3 w-11/12  top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white">
+            <div className="relative size-full p-5">
+             <AddReviews room_id={room_id} setReviewModal={setReviewModal} />
+            </div>
+          </div>
+        </div>
+      )}
       {modal && (
         <div className="absolute top-0 bottom-0 left-0 right-0 z-50 bg-[#31303061]">
           <div className="fixed rounded lg:w-2/5 md:w-2/3 w-11/12  top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white">

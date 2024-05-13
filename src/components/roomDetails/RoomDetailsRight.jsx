@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-const RoomDetailsRight = ({ room, handleBooking }) => {
+const RoomDetailsRight = ({ room, handleBooking, available }) => {
   const { guests, availability, images } = room;
   const [err, setErr] = useState("");
   const defaultDate = new Date();
@@ -131,12 +131,12 @@ const RoomDetailsRight = ({ room, handleBooking }) => {
             handleBooking(`${checkIn} - ${checkOut}`, nights);
           }}
           className={`btn w-full ${
-            availability
+            available
               ? "bg-[#2C4549] hover:bg-[#2C4549]"
               : "bg-[#82342e] hover:bg-[#492c2c]"
           } text-white rounded`}
         >
-          {!availability ? "Booked" : "Book Now"}
+          {!available ? "Booked" : "Book Now"}
         </button>
       </div>
     </div>

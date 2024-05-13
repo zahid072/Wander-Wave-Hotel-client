@@ -4,7 +4,7 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { PiUserSquareThin } from "react-icons/pi";
 import { TbBed } from "react-icons/tb";
 
-const RoomDetailsLeft = ({ room }) => {
+const RoomDetailsLeft = ({ room, available }) => {
   const [slidImage, setSlidImage] = useState(0);
 
   const handleImage = (imageNO) => {
@@ -61,7 +61,7 @@ const RoomDetailsLeft = ({ room }) => {
             {room_size}
           </p>
           <p className="flex gap-2 flex-col justify-center items-center">
-            {availability ? (
+            {available ? (
               <FaRegCheckCircle className="text-5xl text-green-400" />
             ) : (
               <BsXCircle className="text-5xl text-red-400" />
@@ -70,10 +70,10 @@ const RoomDetailsLeft = ({ room }) => {
               Available :{" "}
               <span
                 className={`${
-                  availability ? "text-green-500" : "text-red-400"
+                  available ? "text-green-500" : "text-red-400"
                 }`}
               >
-                {availability ? "YES" : "NO"}
+                {available ? "YES" : "NO"}
               </span>
             </span>
           </p>

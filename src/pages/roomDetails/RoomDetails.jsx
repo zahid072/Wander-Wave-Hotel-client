@@ -18,6 +18,7 @@ const RoomDetails = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const { name, images, price_per_night, availability, room_size, _id } = room;
+  const [available, setAvailable] = useState(availability);
   const { email, reloadUserInfo } = user;
   const user_email = email ? email : reloadUserInfo?.providerUserInfo[0].email;
   const image = images[0]
@@ -25,13 +26,13 @@ const RoomDetails = () => {
   
 
   const handleBooking = (date, nights) => {
-    if (availability) {
+    if (available) {
       setNight(nights);
       setModal(true);
       setBookingDate(date);
     } else {
       Swal.fire({
-        title: "Error!",
+        title: "Sorry!",
         text: "The room already Booked",
         icon: "error",
         confirmButtonText: "Close",
@@ -55,8 +56,8 @@ const RoomDetails = () => {
       if (res.data.insertedId) {
         axiosSecure.patch(`/hotelRooms/${_id}`, {availability: false})
         .then(res=>{
-          console.log(res.data);
           if(res.data.modifiedCount){
+            setAvailable(false)
             Swal.fire({
               title: "Success!",
               text: "Successfully Booked",
@@ -96,11 +97,11 @@ const RoomDetails = () => {
       <div className="flex lg:flex-row flex-col-reverse gap-5 max-w-7xl lg:mx-auto mx-2">
         <div className="lg:w-1/3 w-full ">
           <div className="">
-            <RoomDetailsRight room={room} handleBooking={handleBooking} />
+            <RoomDetailsRight room={room} handleBooking={handleBooking} available={available} />
           </div>
         </div>
         <div className="lg:w-2/3 w-full ">
-          <RoomDetailsLeft  room={room} />
+          <RoomDetailsLeft  room={room} available={available} />
         </div>
       </div>
       {modal && (
