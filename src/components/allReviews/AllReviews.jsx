@@ -10,22 +10,22 @@ import {
   Autoplay,
 } from "swiper/modules";
 import { useEffect } from "react";
-import axios from "axios";
 import { FaStar } from "react-icons/fa";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import TimeStamp from "./TimeStamp";
 
 const AllReviews = () => {
   const stars = [1, 2, 3, 4, 5];
-  const [roomData, setRoomData] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const axiosSecure = useAxiosSecure()
   useEffect(() => {
-    axios.get(`/reviews.json`).then((res) => {
+    axiosSecure.get(`/clientReviews`).then((res) => {
       console.log(res.data);
-      setRoomData(res.data);
+      setReviews(res.data);
       setTimeout(()=>{
-        document.querySelector('.swiper-pagination .swiper-pagination-bullet:last-child').click()
+        document.querySelector('.swiper-pagination .swiper-pagination-bullet:nth-child(2)').click()
        }, 500)
-      setTimeout(()=>{
-        document.querySelector('.swiper-pagination .swiper-pagination-bullet:last-child').click()
-       }, 3000)
+      
     });
   }, []);
   
@@ -39,7 +39,6 @@ const AllReviews = () => {
         effect={"coverflow"}
         grabCursor={true}
         centeredSlides={true}
-        loop={true}
         slidesPerView={"auto"}
         coverflowEffect={{
           rotate: 0,
@@ -54,18 +53,18 @@ const AllReviews = () => {
         modules={[EffectCoverflow, Pagination, Autoplay]}
         className="h-[600px] bg-slate-200"
       >
-        {roomData.map((review, index) => (
+        {reviews?.slice(0, 8).map((review, index) => (
           <SwiperSlide key={index} className="md:w-96 max-[500px]:max-w-96 h-[500px] mt-4 bg-white p-4">
             <img
               id="review-userImage"
               className="size-28 mx-auto rounded-full"
-              src={review?.userImage}
+              src={review?.user_image}
             />
             <div className="py-4 space-y-3">
               <h1 className="text-xl font-bold text-center">
-                {review?.userName}
+                {review?.user_name}
               </h1>
-              <p className="text-center">{review?.description}</p>
+              <p className="text-center">{review?.comment}</p>
               <div className="rating mx-auto justify-center flex">
                 {stars.map((star, index) => (
                   <FaStar
@@ -75,6 +74,9 @@ const AllReviews = () => {
                     }`}
                   />
                 ))}
+              </div>
+              <div className="flex justify-center mt-4 ">
+                <h1 className="text-center text-2xl"><TimeStamp timestamp={review?.timestamp}/></h1>
               </div>
             </div>
           </SwiperSlide>
