@@ -1,7 +1,6 @@
 import React from "react";
 import { FaPen, FaStar } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import useReviewsData from "../../hooks/useReviewsData";
 
 const MyBookingsCard = ({
   handleUpdateDate,
@@ -9,13 +8,12 @@ const MyBookingsCard = ({
   bookingData,
   handleReviews,
 }) => {
-  const { reviewsData } = useReviewsData();
-
+  
   return (
     <div className="bg-gray-200 py-5">
       <div className="flex flex-col max-w-3xl lg:mx-auto mx-2 my-5  py-6 px-2 space-y-4 sm:p-10 bg-gray-900 text-gray-100">
         <h2 className="text-xl font-semibold uppercase">
-          All Bookings : {`(${bookingData.length})`}
+          All Bookings : {`(${bookingData?.length? bookingData?.length : 0})`}
         </h2>
         <ul className="flex flex-col divide-y divide-gray-700">
           {bookingData.length === 0 && (

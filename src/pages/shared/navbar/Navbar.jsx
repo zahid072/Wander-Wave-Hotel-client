@@ -3,29 +3,15 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Navbar = ({ themes, handleThemeToggle }) => {
   const { user, navLoader, logOut } = useContext(AuthContext);
   const { pathname } = useLocation();
-  const axiosSecure = useAxiosSecure();
   
   const user_email = user?.email ? user?.email : user?.reloadUserInfo?.providerUserInfo[0].email;
 
   const handleSignOut = () => {
-    axiosSecure.delete(`/bookings/user/${user_email}`).then((res) => {
-      if (res.data.deletedCount) {
-        axiosSecure
-          .patch(`/hotelRooms/user/AB`, { availability: true })
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.modifiedCount) {
-              logOut();
-            }
-          })
-          .catch((err) => {});
-      }
-    });
+    logOut();
   };
   const navLink = (
     <>

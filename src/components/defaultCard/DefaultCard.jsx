@@ -4,7 +4,6 @@ import { PiUserSquareThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 const DefaultCard = ({ rooms, viewToggle }) => {
-  console.log(rooms);
 
   return (
     <>

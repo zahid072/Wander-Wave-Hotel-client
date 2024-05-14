@@ -10,6 +10,10 @@ const postTime = (timestamp)=>{
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
 
+    if(!diff){
+      return <span className="loading loading-spinner loading-xs size-2"></span>
+    }
+
     if (seconds < 60) {
         return seconds + 's ago';
     } else if (minutes < 60) {

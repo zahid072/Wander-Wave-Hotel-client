@@ -44,7 +44,7 @@ const router = createBrowserRouter([
             <RoomDetails />
           </PrivateRouter>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/hotelRooms/${params?.id}`),
+        loader:({ params }) => fetch(`http://localhost:5000/hotelRooms/${params?.id}`)
       },
       {
         path: "/signIn",

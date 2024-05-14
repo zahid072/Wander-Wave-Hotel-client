@@ -34,7 +34,7 @@ const SignIn = () => {
 
     // email and password sign in
     signInUsers(email, password)
-      .then(() => {
+      .then((res) => {
         toast.success("Sign in successful");
         reset();
         setTimeout(() => {
@@ -61,15 +61,15 @@ const SignIn = () => {
         console.log("google", err.message);
       });
   };
-   // gitHub sighIn
-   const handleGitHubSignIn = () => {
+  // gitHub sighIn
+  const handleGitHubSignIn = () => {
     signInWithGitHub()
       .then((res) => {
         const user = res.user;
         toast.success("Sign in successful");
-        setTimeout(() => {
-          navigate(location?.state ? location.state : "/");
-        }, 1000);
+        // setTimeout(() => {
+        //   navigate(location?.state ? location.state : "/");
+        // }, 1000);
       })
       .catch((err) => {
         console.log("gitHub", err.message);

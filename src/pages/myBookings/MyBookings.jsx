@@ -53,7 +53,7 @@ const MyBookings = () => {
   const user_email = email ? email : reloadUserInfo?.providerUserInfo[0].email;
 
   useEffect(() => {
-    axiosSecure.get(`bookings?email=${user_email}`).then((res) => {
+    axiosSecure.get(`bookings?email=${user_email}`, {withCredentials: true}).then((res) => {
       setBookingData(res?.data);
       setReFetch(false);
     });

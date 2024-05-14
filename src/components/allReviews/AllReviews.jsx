@@ -24,7 +24,7 @@ const AllReviews = () => {
       setReviews(res.data);
       setTimeout(()=>{
         document.querySelector('.swiper-pagination .swiper-pagination-bullet:nth-child(2)').click()
-       }, 500)
+       }, 1000)
       
     });
   }, []);

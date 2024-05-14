@@ -14,7 +14,6 @@ const RoomDetailsLeft = ({ room, available }) => {
     description,
     room_size,
     guests,
-    availability,
     price_per_night,
     services,
     images,

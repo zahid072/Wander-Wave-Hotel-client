@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import RoomReviews from "../roomReviews/RoomReviews";
 
 const RoomDetailsRight = ({ room, handleBooking, available }) => {
-  const { guests, availability, images } = room;
+  const { guests, _id } = room;
   const [err, setErr] = useState("");
   const defaultDate = new Date();
   const defaultDay = defaultDate.getDate();
@@ -138,6 +139,9 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
         >
           {!available ? "Booked" : "Book Now"}
         </button>
+      </div>
+      <div className="mt-5">
+        <RoomReviews id={_id} />
       </div>
     </div>
   );

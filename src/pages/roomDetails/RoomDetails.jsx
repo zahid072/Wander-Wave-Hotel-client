@@ -1,21 +1,19 @@
 import { Helmet } from "react-helmet";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import RoomDetailsRight from "../../components/roomDetails/RoomDetailsRight";
 import RoomDetailsLeft from "../../components/roomDetails/RoomDetailsLeft";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { useContext } from "react";
-import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useEffect } from "react";
 import { FaXmark } from "react-icons/fa6";
+import useAuth from "../../hooks/useAuth";
 
 const RoomDetails = () => {
   const [modal, setModal] = useState(false);
   const [night, setNight] = useState(0);
   const room = useLoaderData();
   const [booking_date, setBookingDate] = useState("");
-  const { user } = useContext(AuthContext);
+  const {user} = useAuth()
   const axiosSecure = useAxiosSecure();
   const { name, images, price_per_night, availability, room_size, _id } = room;
   const [available, setAvailable] = useState(availability);

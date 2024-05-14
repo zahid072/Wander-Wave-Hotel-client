@@ -11,6 +11,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "../firebase/Firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -47,15 +48,61 @@ const AuthProvider = ({ children }) => {
     }
   };
   // logout
+  const user_email = user?.email
+    ? user?.email
+    : user?.reloadUserInfo?.providerUserInfo[0].email;
   const logOut = () => {
-    return signOut(auth);
+    return signOut(auth).then((res) => {
+      axios
+        .delete(`http://localhost:5000/bookings/user/${user_email}`)
+        .then((res) => {
+          if (res.data.deletedCount) {
+            axios
+              .patch(`http://localhost:5000/hotelRooms/user/AB`, {
+                availability: true,
+              })
+              .then((res) => {});
+          }
+        });
+    });
   };
   useEffect(() => {
     setNavLoader(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const email = currentUser?.email
+        ? currentUser?.email
+        : currentUser?.reloadUserInfo?.providerUserInfo[0].email || user?.email
+        ? user?.email
+        : user?.reloadUserInfo?.providerUserInfo[0].email;
+
       setUser(currentUser);
       setNavLoader(false);
       setLoader(false);
+
+      if (currentUser) {
+        axios
+          .post(
+            "http://localhost:5000/jwt",
+            { email },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.success) {
+              console.log("token created");
+            }
+          });
+      } else {
+        axios
+          .post(
+            "http://localhost:5000/logout",
+            { email },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log(res.data);
+          });
+      }
     });
     return () => {
       unsubscribe();
