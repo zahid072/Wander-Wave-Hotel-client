@@ -58,11 +58,11 @@ const AuthProvider = ({ children }) => {
   const logOut = () => {
     return signOut(auth).then((res) => {
       axios
-        .delete(`http://localhost:5000/bookings/user/${user_email}`)
+        .delete(`https://assignment-11-server-mocha-nine.vercel.app/bookings/user/${user_email}`)
         .then((res) => {
           if (res.data.deletedCount) {
             axios
-              .patch(`http://localhost:5000/hotelRooms/user/AB`, {
+              .patch(`https://assignment-11-server-mocha-nine.vercel.app/hotelRooms/user/AB`, {
                 availability: true,
               })
               .then((res) => {});
@@ -88,7 +88,7 @@ const AuthProvider = ({ children }) => {
         setReFetch(true);
         axios
           .post(
-            "http://localhost:5000/jwt",
+            "https://assignment-11-server-mocha-nine.vercel.app/jwt",
             { email },
             { withCredentials: true }
           )
@@ -101,7 +101,7 @@ const AuthProvider = ({ children }) => {
       } else {
         axios
           .post(
-            "http://localhost:5000/logout",
+            "https://assignment-11-server-mocha-nine.vercel.app/logout",
             { email },
             { withCredentials: true }
           )
