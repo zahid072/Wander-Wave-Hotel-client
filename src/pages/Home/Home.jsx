@@ -9,11 +9,20 @@ import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useEffect } from "react";
 import { getStoredId } from "../../Utilities/LocalStorage";
+import useAuth from "../../hooks/useAuth";
+import { useFetcher } from "react-router-dom";
 
 const Home = () => {
   const [isActivate, setIsActivate] = useState(false);
   const [popupModal, setPopupModal] = useState(true);
   const offerId = getStoredId("offer-key");
+  const {signUpSuccess}= useAuth();
+
+  useEffect(() => {
+    if(signUpSuccess){
+        window.location.reload()
+    }
+  }, [signUpSuccess]);
 
   useEffect(() => {
       if (offerId.includes(10)) {
@@ -49,7 +58,7 @@ const Home = () => {
           style={{
             backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://i.pinimg.com/736x/12/d0/e3/12d0e332933e300443d5ab365a71b671.jpg")`,
           }}
-          className=" z-[999] h-[500px] md:w-[400px] w-[80%] rounded bg-white fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-cover bg-center bg-no-repeat shadow-[1px_1px_150px_20px_#9a9999e5]"
+          className=" z-[99] h-[500px] md:w-[400px] w-[80%] rounded bg-white fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-cover bg-center bg-no-repeat shadow-[1px_1px_150px_20px_#9a9999e5]"
         >
           <div className="w-full h-full relative px-3">
             <Modal setIsActivate={setIsActivate} />

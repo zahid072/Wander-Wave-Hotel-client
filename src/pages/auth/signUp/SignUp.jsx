@@ -1,16 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
-import { AuthContext } from "../../../provider/AuthProvider";
+import useAuth from "../../../hooks/useAuth";
 
 const SignUp = () => {
   const [defaultError, setDefaultError] = useState("");
   const [showPass, setShowPass] = useState(false);
-  const { signUpUsers, updateUserProfile } = useContext(AuthContext);
+  const { signUpUsers, updateUserProfile, setSignUpSuccess } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,13 +31,11 @@ const SignUp = () => {
     signUpUsers(email, password)
       .then((result) => {
         const user = result.user;
-        toast.success("User successfully created");
         updateUserProfile(name, photo);
         reset();
         console.log(user);
-        setTimeout(() => {
-          navigate(location?.state ? location.state : "/");
-        }, 1000);
+        navigate(location?.state ? location.state : "/");
+        setSignUpSuccess(true)
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -174,7 +170,6 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 };

@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
@@ -11,7 +10,7 @@ import { AuthContext } from "../../../provider/AuthProvider";
 const SignIn = () => {
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
-  const { signInUsers, signInWithGoogle, signInWithGitHub } =
+  const { signInUsers, signInWithGoogle, signInWithGitHub, setSignInSuccess } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,11 +34,9 @@ const SignIn = () => {
     // email and password sign in
     signInUsers(email, password)
       .then((res) => {
-        toast.success("Sign in successful");
         reset();
-        setTimeout(() => {
-          navigate(location?.state ? location.state : "/");
-        }, 1000);
+        setSignInSuccess(true);
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
         if (err.message === "Firebase: Error (auth/invalid-credential).") {
@@ -52,10 +49,8 @@ const SignIn = () => {
     signInWithGoogle()
       .then((res) => {
         const user = res.user;
-        toast.success("Sign in successful");
-        setTimeout(() => {
-          navigate(location?.state ? location.state : "/");
-        }, 1000);
+        setSignInSuccess(true);
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
         console.log("google", err.message);
@@ -66,10 +61,8 @@ const SignIn = () => {
     signInWithGitHub()
       .then((res) => {
         const user = res.user;
-        toast.success("Sign in successful");
-        // setTimeout(() => {
-        //   navigate(location?.state ? location.state : "/");
-        // }, 1000);
+        setSignInSuccess(true);
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
         console.log("gitHub", err.message);
@@ -196,7 +189,6 @@ const SignIn = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 };

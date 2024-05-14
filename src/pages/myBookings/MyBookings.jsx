@@ -11,6 +11,8 @@ import { FaXmark } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { IoIosArrowDown } from "react-icons/io";
 import AddReviews from "../../components/addReviews/AddReviews";
+import useBookingData from "../../hooks/useBookingData";
+import useAuth from "../../hooks/useAuth";
 
 const MyBookings = () => {
   // -------------------modals---------------------
@@ -19,9 +21,7 @@ const MyBookings = () => {
   // ------------------data states-----------------
   const [bookingId, setBookingId] = useState(null);
   const [room_id, setReviewRoomId] = useState(null);
-  const [reFetch, setReFetch] = useState(false);
-  const { user } = useContext(AuthContext);
-  const [bookingData, setBookingData] = useState([]);
+
   const [postLoader, setPostLoader] = useState(false);
   const [deleteLoader, setDeleteLoader] = useState(false);
   // -------------------date states start---------------------------------
@@ -32,7 +32,6 @@ const MyBookings = () => {
   const [monthIn, setMonthIn] = useState(defaultMonth);
   const [dayOut, setDayOut] = useState(defaultDay + 3);
   const [monthOut, setMonthOut] = useState(defaultMonth);
-
   const [checkIn, setCheckIn] = useState(
     `${defaultDate.getDate().toString().padStart(2, "0")}/${(
       defaultDate.getMonth() + 1
@@ -49,15 +48,8 @@ const MyBookings = () => {
   );
   // -----------------------date states end--------------------------
   const axiosSecure = useAxiosSecure();
-  const { email, reloadUserInfo } = user;
-  const user_email = email ? email : reloadUserInfo?.providerUserInfo[0].email;
-
-  useEffect(() => {
-    axiosSecure.get(`bookings?email=${user_email}`, {withCredentials: true}).then((res) => {
-      setBookingData(res?.data);
-      setReFetch(false);
-    });
-  }, [reFetch]);
+  const { setReFetch } = useAuth();
+  const { bookingData } = useBookingData();
   console.log(bookingData);
 
   // -------------------booking date update handle-----------------------------
@@ -176,10 +168,10 @@ const MyBookings = () => {
     setMonthOut(selectedMonth);
   };
   // ----------------handleReviews---------------------
-  const handleReviews = (id)=>{
-    setReviewModal(true)
-    setReviewRoomId(id)
-  }
+  const handleReviews = (id) => {
+    setReviewModal(true);
+    setReviewRoomId(id);
+  };
   return (
     <div className="relative">
       <Helmet>
@@ -269,7 +261,7 @@ const MyBookings = () => {
         <div className="absolute top-0 bottom-0 left-0 right-0 z-50 bg-[#31303061]">
           <div className="fixed rounded lg:w-2/5 md:w-2/3 w-11/12  top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white">
             <div className="relative size-full p-5">
-             <AddReviews room_id={room_id} setReviewModal={setReviewModal} />
+              <AddReviews room_id={room_id} setReviewModal={setReviewModal} />
             </div>
           </div>
         </div>

@@ -17,6 +17,9 @@ import { removeId } from "../Utilities/LocalStorage";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
+  const [signInSuccess, setSignInSuccess] = useState(false);
+  const [reFetch, setReFetch] = useState(false);
   const [user, setUser] = useState(null);
   const [navLoader, setNavLoader] = useState(false);
   const googleProvider = new GoogleAuthProvider();
@@ -65,7 +68,7 @@ const AuthProvider = ({ children }) => {
               .then((res) => {});
           }
         });
-        removeId(10, "offer-key");
+      removeId(10, "offer-key");
     });
   };
   useEffect(() => {
@@ -82,6 +85,7 @@ const AuthProvider = ({ children }) => {
       setLoader(false);
 
       if (currentUser) {
+        setReFetch(true);
         axios
           .post(
             "http://localhost:5000/jwt",
@@ -123,6 +127,12 @@ const AuthProvider = ({ children }) => {
     signInWithGitHub,
     setCount,
     count,
+    setReFetch,
+    reFetch,
+    signUpSuccess,
+    setSignUpSuccess,
+    signInSuccess,
+    setSignInSuccess,
   };
   return (
     <>

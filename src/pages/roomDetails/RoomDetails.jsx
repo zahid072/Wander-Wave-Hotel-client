@@ -15,6 +15,9 @@ const RoomDetails = () => {
   const [booking_date, setBookingDate] = useState("");
   const {user} = useAuth()
   const axiosSecure = useAxiosSecure();
+  if(room.message){
+    return
+  }
   const { name, images, price_per_night, availability, room_size, _id } = room;
   const [available, setAvailable] = useState(availability);
   const { email, reloadUserInfo } = user;
@@ -22,7 +25,7 @@ const RoomDetails = () => {
   const image = images[0]
   const roomId = _id;
   
-
+  console.log(room)
   const handleBooking = (date, nights) => {
     if (available) {
       setNight(nights);
@@ -47,6 +50,7 @@ const RoomDetails = () => {
     booking_date,
     user_email,
   };
+  console.log(user_email)
   const handleConfirm = () => {
     setModal(false);
     axiosSecure.post("/bookings", new_booking).then((res) => {
