@@ -7,9 +7,19 @@ import AllReviews from "../../components/allReviews/AllReviews";
 import Modal from "../../components/modal/Modal";
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import { useEffect } from "react";
+import { getStoredId } from "../../Utilities/LocalStorage";
 
 const Home = () => {
+  const [isActivate, setIsActivate] = useState(false);
   const [popupModal, setPopupModal] = useState(true);
+  const offerId = getStoredId("offer-key");
+
+  useEffect(() => {
+      if (offerId.includes(10)) {
+        setPopupModal(false)
+      }
+  }, [isActivate]);
 
   const handleClose = () => {
     setPopupModal(false);
@@ -37,12 +47,12 @@ const Home = () => {
       {popupModal && (
         <div
           style={{
-            backgroundImage: `url("https://i.pinimg.com/736x/12/d0/e3/12d0e332933e300443d5ab365a71b671.jpg")`,
+            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://i.pinimg.com/736x/12/d0/e3/12d0e332933e300443d5ab365a71b671.jpg")`,
           }}
-          className=" h-[500px] md:w-[400px] w-[80%] rounded bg-white fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-cover bg-center bg-no-repeat shadow-[1px_1px_150px_20px_#0b0b0be5]"
+          className=" z-[999] h-[500px] md:w-[400px] w-[80%] rounded bg-white fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-cover bg-center bg-no-repeat shadow-[1px_1px_150px_20px_#9a9999e5]"
         >
           <div className="w-full h-full relative px-3">
-            <Modal />
+            <Modal setIsActivate={setIsActivate} />
             <form onSubmit={handleClose}>
               <button className="p-1 rounded absolute top-3 right-3 bg-white text-xl">
                 <IoCloseSharp />

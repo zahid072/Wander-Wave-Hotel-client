@@ -89,7 +89,7 @@ const Rooms = () => {
         </div>
       </div>
       <div className="mt-10 md:mt-24 flex  lg:flex-row-reverse flex-col gap-5 max-w-7xl lg:mx-auto mx-2">
-        <div className="lg:w-1/3 w-full">
+        <div className="lg:w-1/3 w-full ">
           <div>
             <div className="bg-stone-100 p-5 rounded">
               <div>
@@ -108,6 +108,13 @@ const Rooms = () => {
                 defaultValue={400}
                 className="range range-accent"
               />
+            </div>
+            <div className="mt-5 bg-stone-100 p-5 rounded">
+                <h1 className="text-4xl font-bold font-gilda text-center text-orange-500">SPECIAL OFFERS</h1>
+                <div className="mt-5 space-y-4">
+                  <p className=" uppercase text-7xl font-semibold text-center">30% <span className="text-2xl">off</span></p>
+                  <p className="uppercase text-center font-semibold">on a minimum of 4 nights booking.!</p>
+                </div>
             </div>
           </div>
         </div>

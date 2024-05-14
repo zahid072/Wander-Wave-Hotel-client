@@ -19,16 +19,16 @@ const FeaturedRooms = () => {
     });
   }, []);
   return (
-    <div className="p-5 flex md:flex-row flex-col">
+    <div className="p-5 flex lg:flex-row flex-col">
       <div
-        className="md:w-2/6 w-full bg-cover bg-center bg-no-repeat bg-[#f4f5f5]"
+        className="lg:w-2/6 w-full bg-cover bg-center bg-no-repeat bg-[#f4f5f5]"
       >
         <div className="backdrop-blur-[7px] w-full h-full flex flex-col items-center justify-center">
           <img className="md:size-20 size-10 mt-5" src="https://i.ibb.co/SshG09F/room-icon.png" alt="" />
         <h1 className="text-4xl font-semibold font-gilda my-5 text-center">FEATURED ROOMS</h1>
         </div>
       </div>
-      <div className="md:w-2/3 w-full grid md:grid-cols-2 grid-cols-1 gap-5 bg-[#f9f2f2]">
+      <div className="lg:w-2/3 w-full grid md:grid-cols-2 grid-cols-1 gap-5 bg-[#f9f2f2]">
         {loader && <Loader />}
         {roomData.map((room, index) => (
           <div key={index} className="w-full overflow-hidden rounded relative border border-[#2c454970] cursor-pointer">

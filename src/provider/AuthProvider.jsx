@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import auth from "../firebase/Firebase.config";
 import axios from "axios";
+import { removeId } from "../Utilities/LocalStorage";
 
 export const AuthContext = createContext(null);
 
@@ -64,6 +65,7 @@ const AuthProvider = ({ children }) => {
               .then((res) => {});
           }
         });
+        removeId(10, "offer-key");
     });
   };
   useEffect(() => {
