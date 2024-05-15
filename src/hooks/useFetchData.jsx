@@ -6,18 +6,7 @@ const useFetchData = () => {
   const [featureLoader, setFeatureLoader] = useState(true);
   const [roomData, setRoomData] = useState([]);
   const [reviewsData, setReviewsData] = useState([]);
-
-  const [bookingData, setBookingData] = useState([]);
-  const { user, reFetch, setReFetch } = useAuth();
-  const { email, reloadUserInfo } = user;
-  const user_email = email ? email : reloadUserInfo?.providerUserInfo[0].email;
-
-  useEffect(() => {
-    axiosSecure.get(`/bookings?email=${user_email}`).then((res) => {
-      setBookingData(res?.data);
-      setReFetch(false);
-    });
-  }, [reFetch, user]);
+ 
 
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
@@ -34,7 +23,7 @@ const useFetchData = () => {
     });
   }, []);
 
-  return { featureLoader, roomData, reviewsData, bookingData };
+  return { featureLoader, roomData, reviewsData };
 };
 
 export default useFetchData;

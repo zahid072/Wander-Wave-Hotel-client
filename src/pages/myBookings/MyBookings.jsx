@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import { IoIosArrowDown } from "react-icons/io";
 import AddReviews from "../../components/addReviews/AddReviews";
 import useAuth from "../../hooks/useAuth";
-import useFetchData from "../../hooks/useFetchData";
+import useBookingData from "../../hooks/useBookingData";
 
 const MyBookings = () => {
   // -------------------modals---------------------
@@ -46,7 +46,7 @@ const MyBookings = () => {
   // -----------------------date states end--------------------------
   const axiosSecure = useAxiosSecure();
   const { setReFetch } = useAuth();
-  const { bookingData } = useFetchData();
+  const  bookingData  = useBookingData();
   console.log(bookingData);
 
   // -------------------booking date update handle-----------------------------
