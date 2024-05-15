@@ -19,9 +19,13 @@ const Home = () => {
   const { signUpSuccess } = useAuth();
 
   useEffect(() => {
-    if (signUpSuccess) {
-      window.location.reload();
-    }
+
+    setTimeout(() => {
+      if (signUpSuccess) {
+        window.location.reload();
+      }
+    }, 500);
+    
   }, [signUpSuccess]);
 
   useEffect(() => {

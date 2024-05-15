@@ -115,7 +115,7 @@ const Rooms = () => {
             className="px-3 py-3 md:ml-[45%] rounded bg-[#365356] text-center outline-none text-white font-semibold"
           >
             <option className="text-black bg-gray-100" value="">
-              SORT WITH PRICE
+              STAY WITH PRICE
             </option>
             <option className="text-black bg-gray-100 " value="lowestPrice">
               LOWEST PRICE
