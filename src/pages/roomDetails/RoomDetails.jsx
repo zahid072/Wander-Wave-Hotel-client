@@ -9,6 +9,7 @@ import { FaXmark } from "react-icons/fa6";
 import useAuth from "../../hooks/useAuth";
 
 const RoomDetails = () => {
+  const [postLoader, setPostLoader] = useState(false)
   const [modal, setModal] = useState(false);
   const [night, setNight] = useState(0);
   const room = useLoaderData();
@@ -53,12 +54,14 @@ const RoomDetails = () => {
   console.log(user_email)
   const handleConfirm = () => {
     setModal(false);
+    setPostLoader(true)
     axiosSecure.post("/bookings", new_booking).then((res) => {
       
       if (res.data.insertedId) {
         axiosSecure.patch(`/hotelRooms/${_id}`, {availability: false})
         .then(res=>{
           if(res.data.modifiedCount){
+            setPostLoader(false)
             setAvailable(false)
             Swal.fire({
               title: "Success!",
@@ -67,10 +70,26 @@ const RoomDetails = () => {
               confirmButtonText: "Ok",
             });
           }
+        }).catch(err =>{
+          setPostLoader(false)
+          Swal.fire({
+            title: "Error!",
+            text: err.message,
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
         })
         
       }
-    });
+    }).catch(err =>{
+      setPostLoader(false)
+      Swal.fire({
+        title: "Error!",
+        text: err.message,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    })
   };
   return (
     <div className="relative">
@@ -148,6 +167,11 @@ const RoomDetails = () => {
           </div>
         </div>
       )}
+      {postLoader && (
+          <div className="fixed top-0 left-0 right-0 bottom-0 bg-[#2e2d2d47] flex items-center justify-center">
+            <span className="loading loading-spinner loading-lg text-white size-16"></span>
+          </div>
+        )}
     </div>
   );
 };

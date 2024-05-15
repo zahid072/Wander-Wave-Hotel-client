@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "./useAxiosSecure";
-import useAuth from "./useAuth";
 
 const useFetchData = () => {
   const [featureLoader, setFeatureLoader] = useState(true);

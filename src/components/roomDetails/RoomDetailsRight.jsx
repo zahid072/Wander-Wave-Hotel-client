@@ -152,7 +152,7 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
           <div
             data-aos="fade-up"
             data-aos-duration="1000"
-            className="rounded relative"
+            className="rounded relative overflow-hidden"
           >
             <div className="absolute top-0 bottom-0 z-10 left-0 right-0 bg-[#2d2b2b2f]"></div>
             <img
@@ -160,7 +160,9 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
               src={room?.images[0]}
               alt=""
             />
-            <p className="absolute z-20 top-5 right-0 bg-white py-1 px-3 rounded-l">
+            <p data-aos="fade-left"
+                data-aos-delay="100"
+                data-aos-duration="500" className="absolute z-20 top-5 right-0 bg-white py-1 px-3 rounded-l">
               ${room?.price_per_night}
             </p>
             <div className="absolute text-center z-20 left-[30%] top-[60%]">

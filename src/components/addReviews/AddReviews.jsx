@@ -114,6 +114,7 @@ const AddReviews = ({ room_id, setReviewModal }) => {
         <div className="mt-5">
           <label>Comments</label>
           <textarea
+             maxLength={200}
             placeholder="Great stay! Everything was perfect."
             onChange={(e)=>{
                 setComment(e.target.value)

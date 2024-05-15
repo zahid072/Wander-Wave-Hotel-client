@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
 
 const FeaturedRooms = () => {
-  const {featureLoader, roomData} = useFetchData()
+  const { featureLoader, roomData } = useFetchData();
   return (
-    <div className="p-5 flex lg:flex-row flex-col">
+    <div className="p-5 flex lg:flex-row flex-col overflow-hidden">
       <div className="lg:w-2/6 w-full bg-cover bg-center bg-no-repeat bg-[#f4f5f5]">
         <div
           data-aos="fade-up"
@@ -38,7 +38,12 @@ const FeaturedRooms = () => {
                 src={room?.images[0]}
                 alt=""
               />
-              <p className=" absolute top-5 -right-2 py-1 px-6 rounded bg-[#2c4549bd] text-white">
+              <p
+                data-aos="fade-left"
+                data-aos-delay="500"
+                data-aos-duration="500"
+                className=" absolute top-5 -right-2 py-1 px-6 rounded bg-[#2c4549bd] text-white"
+              >
                 $ {room?.price_per_night} / Per Night
               </p>
             </div>

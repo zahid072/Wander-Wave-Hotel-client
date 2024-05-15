@@ -46,7 +46,7 @@ const MyBookings = () => {
   // -----------------------date states end--------------------------
   const axiosSecure = useAxiosSecure();
   const { setReFetch } = useAuth();
-  const  bookingData  = useBookingData();
+  const bookingData = useBookingData();
   console.log(bookingData);
 
   // -------------------booking date update handle-----------------------------
@@ -85,48 +85,66 @@ const MyBookings = () => {
   };
 
   // ------------------booking delete handle---------------------------------
-  const handleCancelBooking = (rooId, id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You want to cancel this booking!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes!",
-      cancelButtonText: "No!",
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setDeleteLoader(true);
-        axiosSecure.delete(`/bookings/${id}`).then((res) => {
-          if (res.data.deletedCount) {
-            axiosSecure
-              .patch(`/hotelRooms/${rooId}`, { availability: true })
-              .then((res) => {
-                console.log(res.data);
-                if (res.data.modifiedCount) {
-                  setReFetch(true);
+  const handleCancelBooking = (rooId, id, bookingDataRange) => {
+    const currentDate = new Date();
+    const [startDateString, endDateString] = bookingDataRange.split(" - ");
+    const bookingDateParts = startDateString.split("/");
+    const bookingDate = new Date(
+      parseInt(bookingDateParts[2]),
+      parseInt(bookingDateParts[1]) - 1,
+      parseInt(bookingDateParts[0])
+    );
+
+    if (bookingDate <= currentDate) {
+      Swal.fire({
+        title: "Warning!",
+        text: "Sorry, you can only cancel bookings up to one day before the booking date.",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+    } else {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You want to cancel this booking!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes!",
+        cancelButtonText: "No!",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setDeleteLoader(true);
+          axiosSecure.delete(`/bookings/${id}`).then((res) => {
+            if (res.data.deletedCount) {
+              axiosSecure
+                .patch(`/hotelRooms/${rooId}`, { availability: true })
+                .then((res) => {
+                  console.log(res.data);
+                  if (res.data.modifiedCount) {
+                    setReFetch(true);
+                    setDeleteLoader(false);
+                    Swal.fire({
+                      title: "Canceled!",
+                      text: "Your booking has been Canceled.",
+                      icon: "success",
+                      confirmButtonText: "Ok",
+                    });
+                  }
+                })
+                .catch((err) => {
                   setDeleteLoader(false);
                   Swal.fire({
-                    title: "Canceled!",
-                    text: "Your booking has been Canceled.",
-                    icon: "success",
+                    title: "Error!",
+                    text: err.message,
+                    icon: "error",
                     confirmButtonText: "Ok",
                   });
-                }
-              })
-              .catch((err) => {
-                setDeleteLoader(false);
-                Swal.fire({
-                  title: "Error!",
-                  text: err.message,
-                  icon: "error",
-                  confirmButtonText: "Ok",
                 });
-              });
-          }
-        });
-      }
-    });
+            }
+          });
+        }
+      });
+    }
   };
 
   // ------------------------------handle get updated date ------------------------------------

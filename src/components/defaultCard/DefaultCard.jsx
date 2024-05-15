@@ -18,7 +18,12 @@ const DefaultCard = ({ rooms, viewToggle }) => {
               src={rooms?.images[0]}
               alt=""
             />
-            <p className=" absolute bottom-5 left-5 py-1 px-6 rounded bg-white">
+            <p
+              data-aos="fade-right"
+              data-aos-delay="200"
+              data-aos-duration="500"
+              className=" absolute bottom-5 left-0 py-1 px-6 rounded-r bg-white"
+            >
               $ {rooms?.price_per_night} / Per Night
             </p>
           </div>

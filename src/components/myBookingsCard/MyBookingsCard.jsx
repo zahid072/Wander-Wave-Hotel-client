@@ -53,7 +53,7 @@ const MyBookingsCard = ({
                     <div className="flex md:flex-row gap-4 flex-col text-sm ">
                       <button
                         onClick={() => {
-                          handleCancelBooking(booking?.roomId, booking?._id);
+                          handleCancelBooking(booking?.roomId, booking?._id, booking?.booking_date);
                         }}
                         type="button"
                         className="bg-gray-200 cursor-pointer text-black rounded flex items-center gap-2 px-3 py-2"
