@@ -93,7 +93,7 @@ const Rooms = () => {
               <li className="flex items-center space-x-2">
                 /
                 <Link
-                  to={"/myBooking"}
+                  to={"/myBookings"}
                   rel="noopener noreferrer"
                   className="flex items-center px-1 hover:underline  cursor-default uppercase"
                 >

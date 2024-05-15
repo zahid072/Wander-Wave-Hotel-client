@@ -16,7 +16,7 @@ const MyBookingsCard = ({
           All Bookings : {`(${bookingData?.length? bookingData?.length : 0})`}
         </h2>
         <ul className="flex flex-col divide-y divide-gray-700">
-          {bookingData.length === 0 && (
+          {bookingData?.length === 0 && (
             <p className="text-center text-red-400 text-xl font-gilda">
               YOUR BOOKING LIST IS EMPTY.
             </p>
