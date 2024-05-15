@@ -68,9 +68,7 @@ const RoomDetailsLeft = ({ room, available }) => {
             <span>
               Available :{" "}
               <span
-                className={`${
-                  available ? "text-green-500" : "text-red-400"
-                }`}
+                className={`${available ? "text-green-500" : "text-red-400"}`}
               >
                 {available ? "YES" : "NO"}
               </span>
@@ -81,8 +79,7 @@ const RoomDetailsLeft = ({ room, available }) => {
             {guests} Guests
           </p>
           <p className="flex gap-2 flex-col justify-center items-center">
-            <TbBed className="text-5xl" />
-           ${price_per_night} / PER NIGHT
+            <TbBed className="text-5xl" />${price_per_night} / PER NIGHT
           </p>
         </div>
         <div className="py-5 ">
@@ -116,6 +113,49 @@ const RoomDetailsLeft = ({ room, available }) => {
           ) : (
             <h1 className="text-red-400">No offer available</h1>
           )}
+        </div>
+        <div className="h-[1px] w-full bg-slate-200 "></div>
+        <div>
+          <h1 className="text-3xl font-semibold font-gilda px-3 py-4 mt-5">
+            AROUND THE HOTEL
+          </h1>
+          <div className="mb-10 py-2 flex md:flex-row flex-col justify-center items-center gap-5">
+            <div
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              className="h-[400px] relative w-full"
+            >
+              <img
+                className="h-full object-cover object-center w-full"
+                src="http://www.nicdarkthemes.com/themes/hotel-booking/wp/demo/chalet/wp-content/uploads/sites/3/2022/05/vert5.jpg"
+                alt=""
+              />
+            </div>
+            <div
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="300"
+              className="h-[400px] relative w-full"
+            >
+              <img
+                className="h-full object-cover object-center w-full"
+                src="https://i.pinimg.com/474x/a0/97/c3/a097c3d896aa51dda494f4e7f55aecb8.jpg"
+                alt=""
+              />
+            </div>
+            <div
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="600"
+              className="h-[400px] relative w-full"
+            >
+              <img
+                className="h-full object-cover object-center w-full"
+                src="https://img.freepik.com/premium-photo/luxury-beautiful-hotel-resort-room-picture_925414-341.jpg"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

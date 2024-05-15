@@ -4,10 +4,13 @@ import { PiUserSquareThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 const DefaultCard = ({ rooms, viewToggle }) => {
-
   return (
     <>
-      <Link to={`/roomDetails/${rooms?._id}`}>
+      <Link
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        to={`/roomDetails/${rooms?._id}`}
+      >
         <div className="w-full overflow-hidden rounded relative border cursor-pointer">
           <div className="h-[300px] w-full relative">
             <img
@@ -44,7 +47,10 @@ const DefaultCard = ({ rooms, viewToggle }) => {
             id="parent"
             className="hover:bg-[#cf78491c] absolute top-0 left-0 bottom-0 right-0  rounded transition-all text-center flex items-center justify-center"
           >
-            <MdLineStyle id="child" className="text-[#ffffffca] text-3xl scale-0" />
+            <MdLineStyle
+              id="child"
+              className="text-[#ffffffca] text-3xl scale-0"
+            />
           </p>
         </div>
       </Link>

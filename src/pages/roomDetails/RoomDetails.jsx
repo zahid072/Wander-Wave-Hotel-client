@@ -91,12 +91,12 @@ const RoomDetails = () => {
           </h1>
         </div>
       </div>
-      <div className="my-10 max-w-7xl lg:mx-auto mx-2">
+      <div className="my-10 max-w-[1320px] lg:mx-auto mx-2">
         <h1 className="text-3xl text-end font-semibold uppercase tracking-widest">
           {name}
         </h1>
       </div>
-      <div className="flex lg:flex-row flex-col-reverse gap-5 max-w-7xl lg:mx-auto mx-2">
+      <div className="flex lg:flex-row flex-col-reverse gap-5 max-w-[1320px] lg:mx-auto mx-2">
         <div className="lg:w-1/3 w-full ">
           <div className="">
             <RoomDetailsRight room={room} handleBooking={handleBooking} available={available} />

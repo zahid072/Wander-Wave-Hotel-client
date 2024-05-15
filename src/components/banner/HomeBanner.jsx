@@ -45,12 +45,12 @@ const HomeBanner = () => {
           <source src={videos} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0d0d0d34] to-[#1211116d] flex justify-center items-center">
+        <div  className="absolute inset-0 bg-gradient-to-b from-[#0d0d0d34] to-[#1211116d] flex justify-center items-center">
           <div>
-            <h1 className="font-gilda mx-auto md:mt-0 mt-5 text-center font-bold lg:text-6xl md:text-4xl text-2xl text-white z-50 lg:w-[600px]">
+            <h1 className="font-gilda animate__animated animate__fadeInDown  mx-auto md:mt-0 mt-5 text-center font-bold lg:text-6xl md:text-4xl text-2xl text-white z-50 lg:w-[600px]">
               ENJOY A LUXURY <br /> EXPERIENCE
             </h1>
-            <div className="flex md:flex-row flex-col md:mt-4 mt-3 mx-auto -mb-20">
+            <div  className="flex md:flex-row flex-col md:mt-4 mt-3 mx-auto -mb-20 animate__animated animate__fadeInDown">
               <div className="md:p-10 relative flex md:text-black text-white justify-around py-2 md:bg-white bg-[#4a4848b5]">
                 {" "}
                 {/* calender div */}

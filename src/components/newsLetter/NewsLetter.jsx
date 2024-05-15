@@ -12,7 +12,8 @@ const NewsLetter = () => {
           }}
         >
           <div className="flex md:flex-row flex-col gap-5 justify-center lg:mx-36 md:mx-5 mx-2">
-            <div
+            <div data-aos="zoom-in-right"
+            data-aos-duration="1000"
               className="md:w-3/5 w-full p-4 rounded bg-[#2c4549d0]"
               
             >
@@ -38,7 +39,9 @@ const NewsLetter = () => {
                     </div>     
               </div>
             </div>
-            <div
+            <div data-aos="zoom-in-left"
+            data-aos-delay="300"
+            data-aos-duration="1000"
               className="md:w-2/5 w-full bg-white rounded p-5 bg-cover flex items-center bg-center bg-no-repeat"
               
             >

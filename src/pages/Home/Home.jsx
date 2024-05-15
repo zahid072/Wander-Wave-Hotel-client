@@ -47,18 +47,20 @@ const Home = () => {
       <div className="md:mx-5 mx-2">
         <NewsLetter />
       </div>
-      <div className="md:mt-20 mt-10">
-        <DirectionMap />
-      </div>
       <div className="my-10 md:my-20">
         <AllReviews />
       </div>
+      <div className="md:mt-20 mt-10">
+        <DirectionMap />
+      </div>
+     
       {popupModal && (
-        <div
+       <div className="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center">
+         <div
           style={{
             backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://i.pinimg.com/736x/12/d0/e3/12d0e332933e300443d5ab365a71b671.jpg")`,
           }}
-          className=" z-[99] h-[500px] md:w-[400px] w-[80%] rounded bg-white fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-cover bg-center bg-no-repeat shadow-[1px_1px_150px_20px_#9a9999e5]"
+          className=" animate__animated animate__zoomIn z-[99] h-[500px] md:w-[400px] w-[80%] rounded bg-white bg-cover bg-center bg-no-repeat shadow-[1px_1px_150px_20px_#9a9999e5]"
         >
           <div className="w-full h-full relative px-3">
             <Modal setIsActivate={setIsActivate} />
@@ -72,6 +74,7 @@ const Home = () => {
             </form>
           </div>
         </div>
+       </div>
       )}
     </div>
   );
