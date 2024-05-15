@@ -1,23 +1,10 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { PiUserSquareThin } from "react-icons/pi";
-import { MdLineStyle } from "react-icons/md";
 import Loader from "../loader/Loader";
 import { Link } from "react-router-dom";
+import useFetchData from "../../hooks/useFetchData";
 
 const FeaturedRooms = () => {
-  const [roomData, setRoomData] = useState([]);
-  const [loader, setLoader] = useState(true);
-  const axiosSecure = useAxiosSecure();
-  useEffect(() => {
-    axiosSecure.get(`/highestPricedRooms`).then((res) => {
-      console.log(res.data);
-      setRoomData(res.data);
-      setLoader(false);
-    });
-  }, []);
+  const {featureLoader, roomData} = useFetchData()
   return (
     <div className="p-5 flex lg:flex-row flex-col">
       <div className="lg:w-2/6 w-full bg-cover bg-center bg-no-repeat bg-[#f4f5f5]">
@@ -37,7 +24,7 @@ const FeaturedRooms = () => {
         </div>
       </div>
       <div className="lg:w-2/3 w-full grid md:grid-cols-2 grid-cols-1 gap-5 bg-[#f9f2f2]">
-        {loader && <Loader />}
+        {featureLoader && <Loader />}
         {roomData.map((room, index) => (
           <div
             data-aos="fade-up"

@@ -1,13 +1,13 @@
 import React from "react";
-import useReviewsData from "../../hooks/useReviewsData";
 import { useState } from "react";
 import { useEffect } from "react";
 import TimeStamp from "../allReviews/TimeStamp";
 import { FaStar } from "react-icons/fa";
+import useFetchData from "../../hooks/useFetchData";
 
 const RoomReviews = ({ id }) => {
   const stars = [1, 2, 3, 4, 5];
-  const { reviewsData } = useReviewsData();
+  const { reviewsData } = useFetchData();
   const [roomReviews, setRoomReviews] = useState([]);
 
   useEffect(() => {
@@ -42,13 +42,14 @@ const RoomReviews = ({ id }) => {
                   {stars.map((star, index) => (
                     <FaStar
                       key={index}
-                      className={` ${index + 1 <= review?.rating ? "text-orange-400" : ""}`}
+                      className={` ${
+                        index + 1 <= review?.rating ? "text-orange-400" : ""
+                      }`}
                     />
                   ))}
                 </div>
                 <p className="flex gap-2">
                   Reviewed : <TimeStamp timestamp={review?.timestamp} />
-                  
                 </p>
               </div>
             </div>

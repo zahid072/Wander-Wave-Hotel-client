@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import RoomReviews from "../roomReviews/RoomReviews";
+import useFetchData from "../../hooks/useFetchData";
+import { Link } from "react-router-dom";
 
 const RoomDetailsRight = ({ room, handleBooking, available }) => {
+  const { roomData } = useFetchData();
   const { guests, _id } = room;
   const [err, setErr] = useState("");
   const defaultDate = new Date();
@@ -142,6 +145,37 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
       </div>
       <div className="mt-5">
         <RoomReviews id={_id} />
+      </div>
+      <div className="bg-[#7142910f] p-5 rounded flex flex-col gap-3 justify-center  w-full mt-5">
+        <h1 className="text-xl font-semibold pb-2">Best Rooms</h1>
+        {roomData?.slice(1, 3).map((room, index) => (
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            className="rounded relative"
+          >
+            <div className="absolute top-0 bottom-0 z-10 left-0 right-0 bg-[#2d2b2b2f]"></div>
+            <img
+              className="w-full rounded object-cover object-center"
+              src={room?.images[0]}
+              alt=""
+            />
+            <p className="absolute z-20 top-5 right-0 bg-white py-1 px-3 rounded-l">
+              ${room?.price_per_night}
+            </p>
+            <div className="absolute text-center z-20 left-[30%] top-[60%]">
+              <h1 className=" text-xl font-semibold text-white rounded">
+                {room?.name}
+              </h1>
+              <Link to={`/roomDetails/${room?._id}`}>
+              
+              <button className="uppercase text-white px-3 py-1 rounded mt-4 underline bg-black text-sm font-semibold ">
+                book now
+              </button>
+              </Link>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

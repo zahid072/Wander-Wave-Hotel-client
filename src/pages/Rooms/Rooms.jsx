@@ -5,7 +5,10 @@ import DefaultCard from "../../components/defaultCard/DefaultCard";
 import { MdGridView } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
 import Loader from "../../components/loader/Loader";
-import { AuthContext } from "../../provider/AuthProvider";
+import visa from '../../assets/images/icons/visa.png'
+import payPal from '../../assets/images/icons/paypal.png'
+import googlePay from '../../assets/images/icons/googlepay.png'
+import masterCard from '../../assets/images/icons/mastercard.png'
 
 const Rooms = () => {
   const [roomData, setRoomData] = useState([]);
@@ -115,6 +118,24 @@ const Rooms = () => {
                   <p className=" uppercase text-7xl font-semibold text-center">30% <span className="text-2xl">off</span></p>
                   <p className="uppercase text-center font-semibold">on a minimum of 4 nights booking.!</p>
                 </div>
+            </div>
+            <div className="mt-5 bg-stone-100 p-5 rounded">
+
+              <h1 className="text-2xl font-semibold uppercase font-gilda">Payment Methods</h1>
+              <div className="flex md:flex-row flex-col justify-center items-center gap-5 mt-5">
+                    <div className="lg:w-full w-28 h-14 rounded-lg">
+                      <img className="w-full h-14" src={visa} alt="" />
+                    </div>
+                    <div className="lg:w-full w-28 h-14 rounded-lg">
+                      <img className="w-full h-14" src={payPal} alt="" />
+                    </div>
+                    <div className="lg:w-full w-28 h-14 rounded-lg">
+                      <img className="w-full h-14" src={googlePay} alt="" />
+                    </div>
+                    <div className="lg:w-full w-28 h-14 rounded-lg">
+                      <img className="w-full h-14" src={masterCard} alt="" />
+                    </div>
+              </div>
             </div>
           </div>
         </div>

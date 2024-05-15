@@ -1,18 +1,15 @@
 import React from "react";
-import { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useEffect } from "react";
 import { useState } from "react";
 import MyBookingsCard from "../../components/myBookingsCard/MyBookingsCard";
 import { FaXmark } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { IoIosArrowDown } from "react-icons/io";
 import AddReviews from "../../components/addReviews/AddReviews";
-import useBookingData from "../../hooks/useBookingData";
 import useAuth from "../../hooks/useAuth";
+import useFetchData from "../../hooks/useFetchData";
 
 const MyBookings = () => {
   // -------------------modals---------------------
@@ -49,7 +46,7 @@ const MyBookings = () => {
   // -----------------------date states end--------------------------
   const axiosSecure = useAxiosSecure();
   const { setReFetch } = useAuth();
-  const { bookingData } = useBookingData();
+  const { bookingData } = useFetchData();
   console.log(bookingData);
 
   // -------------------booking date update handle-----------------------------
