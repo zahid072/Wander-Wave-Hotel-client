@@ -10,6 +10,7 @@ import MyBookings from "../pages/myBookings/MyBookings";
 import Contact from "../pages/contact/Contact";
 import PrivateRouter from "./PrivateRouter";
 import RoomDetails from "../pages/roomDetails/RoomDetails";
+import Gallery from "../pages/gallery/Gallery";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
           </PrivateRouter>
         ),
         loader:({ params }) => fetch(`https://assignment-11-server-mocha-nine.vercel.app/hotelRooms/${params?.id}`)
+      },
+      {
+        path: "/gallery",
+        element: <Gallery />,
       },
       {
         path: "/signIn",

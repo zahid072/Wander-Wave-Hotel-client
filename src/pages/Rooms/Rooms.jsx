@@ -5,10 +5,11 @@ import DefaultCard from "../../components/defaultCard/DefaultCard";
 import { MdGridView } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
 import Loader from "../../components/loader/Loader";
-import visa from '../../assets/images/icons/visa.png'
-import payPal from '../../assets/images/icons/paypal.png'
-import googlePay from '../../assets/images/icons/googlepay.png'
-import masterCard from '../../assets/images/icons/mastercard.png'
+import visa from "../../assets/images/icons/visa.png";
+import payPal from "../../assets/images/icons/paypal.png";
+import googlePay from "../../assets/images/icons/googlepay.png";
+import masterCard from "../../assets/images/icons/mastercard.png";
+import { Link } from "react-router-dom";
 
 const Rooms = () => {
   const [roomData, setRoomData] = useState([]);
@@ -25,7 +26,7 @@ const Rooms = () => {
   const handleGridView = () => {
     setViewToggle(true);
   };
- 
+
   // get rooms data
   useEffect(() => {
     axiosSecure
@@ -57,8 +58,50 @@ const Rooms = () => {
           style={{
             backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://media.designcafe.com/wp-content/uploads/2023/09/11183952/modern-luxury-bedroom-design.jpg")`,
           }}
-          className="h-80 w-full bg-no-repeat bg-cover bg-center flex items-center justify-center text-white"
+          className="h-80 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center text-white"
         >
+          <nav aria-label="breadcrumb" className="w-full p-4 text-gray-100">
+            <ol className="flex justify-center flex-wrap h-8 space-x-2">
+              <li className="flex items-center">
+                <Link
+                  to={"/"}
+                  rel="noopener noreferrer"
+                  title="Back to homepage"
+                  className="hover:underline"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="w-5 h-5 pr-1 text-gray-100 "
+                  >
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                  </svg>
+                </Link>
+              </li>
+              <li className="flex items-center space-x-2">
+                /
+                <Link
+                  to={"/gallery"}
+                  rel="noopener noreferrer"
+                  className="flex items-center px-1 active:underline capitalize hover:underline"
+                >
+                  GALLERY
+                </Link>
+              </li>
+
+              <li className="flex items-center space-x-2">
+                /
+                <Link
+                  to={"/myBooking"}
+                  rel="noopener noreferrer"
+                  className="flex items-center px-1 hover:underline  cursor-default uppercase"
+                >
+                  my booking
+                </Link>
+              </li>
+            </ol>
+          </nav>
           <h1 className="font-gilda px-2 text-center md:text-6xl text-3xl font-semibold tracking-widest">
             FIND YOUR PERFECT STAY
           </h1>
@@ -113,28 +156,35 @@ const Rooms = () => {
               />
             </div>
             <div className="mt-5 bg-stone-100 p-5 rounded">
-                <h1 className="text-4xl font-bold font-gilda text-center text-orange-500">SPECIAL OFFERS</h1>
-                <div className="mt-5 space-y-4">
-                  <p className=" uppercase text-7xl font-semibold text-center">30% <span className="text-2xl">off</span></p>
-                  <p className="uppercase text-center font-semibold">on a minimum of 4 nights booking.!</p>
-                </div>
+              <h1 className="text-4xl font-bold font-gilda text-center text-orange-500">
+                SPECIAL OFFERS
+              </h1>
+              <div className="mt-5 space-y-4">
+                <p className=" uppercase text-7xl font-semibold text-center">
+                  30% <span className="text-2xl">off</span>
+                </p>
+                <p className="uppercase text-center font-semibold">
+                  on a minimum of 4 nights booking.!
+                </p>
+              </div>
             </div>
             <div className="mt-5 bg-stone-100 p-5 rounded">
-
-              <h1 className="text-2xl font-semibold uppercase font-gilda">Payment Methods</h1>
+              <h1 className="text-2xl font-semibold uppercase font-gilda">
+                Payment Methods
+              </h1>
               <div className="flex md:flex-row flex-col justify-center items-center gap-5 mt-5">
-                    <div className="lg:w-full w-28 h-14 rounded-lg">
-                      <img className="w-full h-14" src={visa} alt="" />
-                    </div>
-                    <div className="lg:w-full w-28 h-14 rounded-lg">
-                      <img className="w-full h-14" src={payPal} alt="" />
-                    </div>
-                    <div className="lg:w-full w-28 h-14 rounded-lg">
-                      <img className="w-full h-14" src={googlePay} alt="" />
-                    </div>
-                    <div className="lg:w-full w-28 h-14 rounded-lg">
-                      <img className="w-full h-14" src={masterCard} alt="" />
-                    </div>
+                <div className="lg:w-full w-28 h-14 rounded-lg">
+                  <img className="w-full h-14" src={visa} alt="" />
+                </div>
+                <div className="lg:w-full w-28 h-14 rounded-lg">
+                  <img className="w-full h-14" src={payPal} alt="" />
+                </div>
+                <div className="lg:w-full w-28 h-14 rounded-lg">
+                  <img className="w-full h-14" src={googlePay} alt="" />
+                </div>
+                <div className="lg:w-full w-28 h-14 rounded-lg">
+                  <img className="w-full h-14" src={masterCard} alt="" />
+                </div>
               </div>
             </div>
           </div>

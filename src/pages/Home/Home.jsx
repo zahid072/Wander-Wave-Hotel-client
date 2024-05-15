@@ -16,18 +16,18 @@ const Home = () => {
   const [isActivate, setIsActivate] = useState(false);
   const [popupModal, setPopupModal] = useState(true);
   const offerId = getStoredId("offer-key");
-  const {signUpSuccess}= useAuth();
+  const { signUpSuccess } = useAuth();
 
   useEffect(() => {
-    if(signUpSuccess){
-        window.location.reload()
+    if (signUpSuccess) {
+      window.location.reload();
     }
   }, [signUpSuccess]);
 
   useEffect(() => {
-      if (offerId.includes(10)) {
-        setPopupModal(false)
-      }
+    if (offerId.includes(10)) {
+      setPopupModal(false);
+    }
   }, [isActivate]);
 
   const handleClose = () => {
@@ -53,28 +53,29 @@ const Home = () => {
       <div className="md:mt-20 mt-10">
         <DirectionMap />
       </div>
-     
+
       {popupModal && (
-       <div className="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center">
-         <div
-          style={{
-            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://i.pinimg.com/736x/12/d0/e3/12d0e332933e300443d5ab365a71b671.jpg")`,
-          }}
-          className=" animate__animated animate__zoomIn z-[99] h-[500px] md:w-[400px] w-[80%] rounded bg-white bg-cover bg-center bg-no-repeat shadow-[1px_1px_150px_20px_#9a9999e5]"
-        >
-          <div className="w-full h-full relative px-3">
-            <Modal setIsActivate={setIsActivate} />
-            <form onSubmit={handleClose}>
-              <button className="p-1 rounded absolute top-3 right-3 bg-white text-xl">
-                <IoCloseSharp />
-              </button>
-              <button className="absolute px-3 py-2 left-1/2 transform -translate-x-1/2 rounded bottom-3   text-white bg-[#201f1f]">
-                No Thanks
-              </button>
-            </form>
+        <div className="fixed top-0 z-[999] bottom-0 left-0 right-0 flex justify-center items-center">
+          <div className="bg-white  animate__animated animate__zoomIn lg:w-1/2 w-[80%] relative rounded flex md:flex-row flex-col">
+            <div
+              style={{
+                backgroundImage: ` url("https://i.pinimg.com/736x/12/d0/e3/12d0e332933e300443d5ab365a71b671.jpg")`,
+              }}
+              className="w-full md:h-[500px] h-[150px]  rounded bg-white bg-cover bg-center bg-no-repeat "
+            ></div>
+            <div className="w-full md:h-[500px] h-[400px] px-3">
+              <Modal setIsActivate={setIsActivate} />
+              <form onSubmit={handleClose}>
+                <button className="p-1 rounded absolute top-3 right-3 bg-white text-xl">
+                  <IoCloseSharp />
+                </button>
+                <button className="absolute px-3 py-2 md:left-2/3 left-[35%] rounded bottom-3 text-white bg-[#201f1f]">
+                  No Thanks
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-       </div>
       )}
     </div>
   );

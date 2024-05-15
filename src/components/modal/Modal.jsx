@@ -21,14 +21,14 @@ const Modal = ({ setIsActivate }) => {
       className="py-5
     "
     >
-      <h1 className="bg-[#718897eb] rounded  text-white font-bold py-2 text-xl text-center mt-8 ">
+      <h1 className="bg-[#718897eb] rounded  text-white font-bold py-2 md:text-xl text-center md:mt-8 mt-4">
         Enjoy 10% off your first hotel booking!
       </h1>
       <form
         onSubmit={handleOffer}
-        className="bg-[#2a414fd2] p-3 mt-5 rounded w-full flex justify-center flex-col"
+        className="bg-[#2a414fd2] p-3 mt-2 md:mt-5 rounded w-full flex justify-center flex-col"
       >
-        <div className="flex flex-col gap-5 mt-5 ">
+        <div className="flex flex-col gap-5 mt-2 md:mt-5 ">
           <input
             type="text"
             className="input input-bordered w-full "
