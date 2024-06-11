@@ -47,7 +47,7 @@ const AuthProvider = ({ children }) => {
         displayName: name,
         photoURL: photo,
       }).then(() => {
-        setUser({ displayName: name, photoURL: photo });
+        
       });
     }
   };
@@ -74,18 +74,15 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     setNavLoader(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const email = currentUser?.email
-        ? currentUser?.email
-        : currentUser?.reloadUserInfo?.providerUserInfo[0].email || user?.email
-        ? user?.email
-        : user?.reloadUserInfo?.providerUserInfo[0].email;
-
       setUser(currentUser);
       setNavLoader(false);
       setLoader(false);
-
+      const email = currentUser?.email
+        ? currentUser?.email
+        : currentUser?.reloadUserInfo?.providerUserInfo[0].email;
+      
+       
       if (currentUser) {
-        setReFetch(true);
         axios
           .post(
             "https://assignment-11-server-mocha-nine.vercel.app/jwt",
@@ -93,9 +90,7 @@ const AuthProvider = ({ children }) => {
             { withCredentials: true }
           )
           .then((res) => {
-            console.log(res.data);
             if (res.data.success) {
-              console.log("token created");
             }
           });
       } else {
@@ -106,7 +101,6 @@ const AuthProvider = ({ children }) => {
             { withCredentials: true }
           )
           .then((res) => {
-            console.log(res.data);
           });
       }
     });

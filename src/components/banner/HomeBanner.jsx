@@ -16,7 +16,6 @@ const HomeBanner = () => {
   const { count, setCount } = useContext(AuthContext);
 
   const handleCheckIn = (event) => {
-    // console.log(event)
     const selectedDate = event.target ? new Date(event.target.value) : date;
     setDate(selectedDate);
     const selectedDay = parseInt(selectedDate.getDate());
@@ -27,7 +26,6 @@ const HomeBanner = () => {
     setMonthIn(selectedMonth);
   };
   const handleCheckOut = (event) => {
-    // console.log(event)
     const selectedDate = event.target ? new Date(event.target.value) : date;
     setDate(selectedDate);
     const selectedDay = parseInt(selectedDate.getDate());

@@ -11,20 +11,17 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
   const [err, setErr] = useState("");
   const defaultDate = new Date();
   const defaultDay = defaultDate.getDate();
-  const [checkIn, setCheckIn] = useState(
-    `${defaultDate.getDate().toString().padStart(2, "0")}/${(
-      defaultDate.getMonth() + 1
-    )
-      .toString()
-      .padStart(2, "0")}/${defaultDate.getFullYear()}`
-  );
-  const [checkOut, setCheckOut] = useState(
-    `${(defaultDate.getDate() + 3).toString().padStart(2, "0")}/${(
-      defaultDate.getMonth() + 1
-    )
-      .toString()
-      .padStart(2, "0")}/${defaultDate.getFullYear()}`
-  );
+  const [checkIn, setCheckIn] = useState(defaultDate.toISOString().split('T')[0]);
+  // checkout
+  const [checkOut, setCheckOut] = useState('');
+  useEffect(() => {
+    const crntDate = new Date();
+    const nextDay = new Date(crntDate);
+    nextDay.setDate(crntDate.getDate() + 3);
+    const formattedDate = nextDay.toISOString().split('T')[0];
+    setCheckOut(formattedDate);
+  }, []);
+  // checkout
   const defaultMonth = defaultDate.toLocaleString("default", { month: "long" });
   const [dayIn, setDayIn] = useState(defaultDay);
   const [monthIn, setMonthIn] = useState(defaultMonth);
@@ -42,15 +39,10 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
 
   const handleCheckIn = (event) => {
     setErr("");
-    // console.log(event)
     const selectedDate = new Date(event.target.value);
-    setCheckIn(
-      `${selectedDate.getDate().toString().padStart(2, "0")}/${(
-        selectedDate.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, "0")}/${selectedDate.getFullYear()}`
-    );
+    
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+    setCheckIn(formattedDate);
     const selectedDay = parseInt(selectedDate.getDate());
     const selectedMonth = selectedDate.toLocaleString("default", {
       month: "long",
@@ -59,16 +51,9 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
     setMonthIn(selectedMonth);
   };
   const handleCheckOut = (event) => {
-    setErr("");
-    // console.log(event)
     const selectedDate = new Date(event.target.value);
-    setCheckOut(
-      `${selectedDate.getDate().toString().padStart(2, "0")}/${(
-        selectedDate.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, "0")}/${selectedDate.getFullYear()}`
-    );
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+    setCheckOut(formattedDate);
     const selectedDay = parseInt(selectedDate.getDate());
     const selectedMonth = selectedDate.toLocaleString("default", {
       month: "long",
@@ -92,6 +77,7 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
           <input
             className=" absolute top-0 left-0 bottom-0 right-0 opacity-0 cursor-pointer w-full h-full"
             onChange={handleCheckIn}
+            defaultValue={checkIn}
             type="date"
           />
         </div>
@@ -108,6 +94,7 @@ const RoomDetailsRight = ({ room, handleBooking, available }) => {
           <input
             className=" absolute top-0 left-0 bottom-0 right-0 opacity-0 cursor-pointer w-full h-full"
             onChange={handleCheckOut}
+            defaultValue={checkOut}
             type="date"
           />
         </div>

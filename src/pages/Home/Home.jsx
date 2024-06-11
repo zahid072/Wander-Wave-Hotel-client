@@ -18,15 +18,15 @@ const Home = () => {
   const offerId = getStoredId("offer-key");
   const { signUpSuccess } = useAuth();
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    setTimeout(() => {
-      if (signUpSuccess) {
-        window.location.reload();
-      }
-    }, 500);
+  //   setTimeout(() => {
+  //     if (signUpSuccess) {
+  //       window.location.reload();
+  //     }
+  //   }, 500);
     
-  }, [signUpSuccess]);
+  // }, [signUpSuccess]);
 
   useEffect(() => {
     if (offerId.includes(10)) {

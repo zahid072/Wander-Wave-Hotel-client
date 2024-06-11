@@ -20,7 +20,6 @@ const AllReviews = () => {
   const axiosSecure = useAxiosSecure()
   useEffect(() => {
     axiosSecure.get(`/clientReviews`).then((res) => {
-      console.log(res.data);
       setReviews(res.data);
       setTimeout(()=>{
         document.querySelector('.swiper-pagination .swiper-pagination-bullet:nth-child(2)').click()

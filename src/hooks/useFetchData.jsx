@@ -10,15 +10,14 @@ const useFetchData = () => {
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
     axiosSecure.get(`/highestPricedRooms`).then((res) => {
-      console.log(res.data);
-      setRoomData(res.data);
+      setRoomData(res?.data);
       setFeatureLoader(false);
     });
   }, []);
 
   useEffect(() => {
     axiosSecure.get("/clientReviews").then((res) => {
-      setReviewsData(res.data);
+      setReviewsData(res?.data);
     });
   }, []);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -25,37 +25,41 @@ const MyBookings = () => {
   const defaultDate = new Date();
   const defaultDay = defaultDate.getDate();
   const defaultMonth = defaultDate.toLocaleString("default", { month: "long" });
-  const [dayIn, setDayIn] = useState(defaultDay);
+  const [dayIn, setDayIn] = useState(defaultDay+1);
   const [monthIn, setMonthIn] = useState(defaultMonth);
   const [dayOut, setDayOut] = useState(defaultDay + 3);
   const [monthOut, setMonthOut] = useState(defaultMonth);
-  const [checkIn, setCheckIn] = useState(
-    `${defaultDate.getDate().toString().padStart(2, "0")}/${(
-      defaultDate.getMonth() + 1
-    )
-      .toString()
-      .padStart(2, "0")}/${defaultDate.getFullYear()}`
-  );
-  const [checkOut, setCheckOut] = useState(
-    `${(defaultDate.getDate() + 3).toString().padStart(2, "0")}/${(
-      defaultDate.getMonth() + 1
-    )
-      .toString()
-      .padStart(2, "0")}/${defaultDate.getFullYear()}`
-  );
+  // checkIn
+  const [checkIn, setCheckIn] = useState('');
+  useEffect(() => {
+    const crntDate = new Date();
+    const nextDay = new Date(crntDate);
+    nextDay.setDate(crntDate.getDate() + 1);
+    const formattedDate = nextDay.toISOString().split('T')[0];
+    setCheckIn(formattedDate);
+  }, []);
+  // checkout
+  const [checkOut, setCheckOut] = useState('');
+  useEffect(() => {
+    const crntDate = new Date();
+    const nextDay = new Date(crntDate);
+    nextDay.setDate(crntDate.getDate() + 3);
+    const formattedDate = nextDay.toISOString().split('T')[0];
+    setCheckOut(formattedDate);
+  }, []);
   // -----------------------date states end--------------------------
   const axiosSecure = useAxiosSecure();
   const { setReFetch } = useAuth();
   const bookingData = useBookingData();
-  console.log(bookingData);
 
   // -------------------booking date update handle-----------------------------
   const handleUpdateDate = (id) => {
     setModal(true);
     setBookingId(id);
   };
-  const newDate = { booking_date: `${checkIn} - ${checkOut}` };
+  
   const handleUpdate = () => {
+    const newDate = { booking_date: `${checkIn} - ${checkOut}` };
     setPostLoader(true);
     axiosSecure
       .patch(`/bookings/${bookingId}`, newDate)
@@ -119,7 +123,6 @@ const MyBookings = () => {
               axiosSecure
                 .patch(`/hotelRooms/${rooId}`, { availability: true })
                 .then((res) => {
-                  console.log(res.data);
                   if (res.data.modifiedCount) {
                     setReFetch(true);
                     setDeleteLoader(false);
@@ -150,13 +153,8 @@ const MyBookings = () => {
   // ------------------------------handle get updated date ------------------------------------
   const handleCheckIn = (e) => {
     const selectedDate = new Date(e.target.value);
-    setCheckIn(
-      `${selectedDate.getDate().toString().padStart(2, "0")}/${(
-        selectedDate.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, "0")}/${selectedDate.getFullYear()}`
-    );
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+    setCheckIn(formattedDate);
     // ------------ set display date and month--------------
     const selectedDay = parseInt(selectedDate.getDate());
     const selectedMonth = selectedDate.toLocaleString("default", {
@@ -167,13 +165,8 @@ const MyBookings = () => {
   };
   const handleCheckOut = (e) => {
     const selectedDate = new Date(e.target.value);
-    setCheckOut(
-      `${selectedDate.getDate().toString().padStart(2, "0")}/${(
-        selectedDate.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, "0")}/${selectedDate.getFullYear()}`
-    );
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+    setCheckOut(formattedDate);
     // ------------ set display date and month--------------
     const selectedDay = parseInt(selectedDate.getDate());
     const selectedMonth = selectedDate.toLocaleString("default", {
@@ -299,6 +292,7 @@ const MyBookings = () => {
                   <input
                     className=" absolute top-0 left-0 bottom-0 right-0 opacity-0 cursor-pointer w-full h-full"
                     onChange={handleCheckIn}
+                    defaultValue={checkIn}
                     type="date"
                   />
                 </div>
@@ -315,6 +309,7 @@ const MyBookings = () => {
                   <input
                     className=" absolute top-0 left-0 bottom-0 right-0 opacity-0 cursor-pointer w-full h-full"
                     onChange={handleCheckOut}
+                    defaultValue={checkOut}
                     type="date"
                   />
                 </div>

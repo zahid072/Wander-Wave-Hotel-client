@@ -33,9 +33,9 @@ const SignUp = () => {
         const user = result.user;
         updateUserProfile(name, photo);
         reset();
-        console.log(user);
-        navigate(location?.state ? location.state : "/");
         setSignUpSuccess(true)
+        navigate(location?.state ? location.state : "/");
+       
       })
       .catch((error) => {
         const errorMessage = error.message;

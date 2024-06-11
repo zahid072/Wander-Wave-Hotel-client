@@ -1,6 +1,6 @@
 Site : Wander Wave
 
-Live : https://wander-wave-28d5c.web.app
+Live : https://a11-hotel-booking.netlify.app
 
 Theme : Hotels & Rooms Bookings
 

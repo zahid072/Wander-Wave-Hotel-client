@@ -11,7 +11,7 @@ import DirectionMap from "../../components/directionMap/DirectionMap";
 const Contact = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(user);
+  
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (!user) {

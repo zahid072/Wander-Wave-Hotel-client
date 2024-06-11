@@ -21,12 +21,10 @@ const RoomDetails = () => {
   }
   const { name, images, price_per_night, availability, room_size, _id } = room;
   const [available, setAvailable] = useState(availability);
-  const { email, reloadUserInfo } = user;
-  const user_email = email ? email : reloadUserInfo?.providerUserInfo[0].email;
+  const user_email = user?.email ? user?.email : user?.reloadUserInfo?.providerUserInfo[0].email;
   const image = images[0];
   const roomId = _id;
 
-  console.log(room);
   const handleBooking = (date, nights) => {
     if (available) {
       setNight(nights);
@@ -41,7 +39,6 @@ const RoomDetails = () => {
       });
     }
   };
-
   const new_booking = {
     name,
     roomId,
@@ -51,7 +48,6 @@ const RoomDetails = () => {
     booking_date,
     user_email,
   };
-  console.log(user_email);
   const handleConfirm = () => {
     setModal(false);
     setPostLoader(true);

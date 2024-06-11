@@ -32,9 +32,8 @@ const Rooms = () => {
     axiosSecure
       .get(`/hotelRooms?minPrice=50&maxPrice=${maxPrice}`)
       .then((res) => {
-        console.log(res.data);
 
-        const sorted = res.data.sort((a, b) => {
+        const sorted = res?.data.sort((a, b) => {
           if (sortValue === "highestPrice") {
             return b.price_per_night - a.price_per_night;
           } else if (sortValue === "lowestPrice") {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
@@ -50,12 +50,26 @@ const SignIn = () => {
       .then((res) => {
         const user = res.user;
         setSignInSuccess(true);
-        navigate(location?.state ? location.state : "/");
+        navigate(location?.state ? location.state : "/")
+        // localStorage.setItem('destinationPath', location?.state ? location.state : "/");
+        // window.location.reload();
       })
       .catch((err) => {
-        console.log("google", err.message);
       });
   };
+
+  // redirect  after reload
+//   useEffect(() => {
+//     // Retrieve the destination path from localStorage
+//     const destinationPath = localStorage.getItem('destinationPath');
+//     // If there is a destination path, navigate to it and clear localStorage
+//     if (destinationPath) {
+//         navigate(destinationPath);
+//         localStorage.removeItem('destinationPath');
+//     }
+// }, []);
+
+
   // gitHub sighIn
   const handleGitHubSignIn = () => {
     signInWithGitHub()
@@ -65,7 +79,6 @@ const SignIn = () => {
         navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
-        console.log("gitHub", err.message);
       });
   };
   return (
@@ -194,3 +207,4 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
